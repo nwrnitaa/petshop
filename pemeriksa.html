@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulir Perawatan Kucing - PetShop Ceria</title>
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #fff0f5;
+      padding: 2rem;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #d63384;
+    }
+
+    form {
+      background-color: #ffffff;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #d63384;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #c2185b;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🐾 Formulir Pemeriksaan Kucing</h1>
+
+  <form id="formPerawatan">
+    <!-- Data Customer -->
+    <label for="nama">Nama Lengkap Pemilik</label>
+    <input type="text" id="nama" name="nama" required placeholder="Contoh: Rina Aulia">
+
+    <label for="telepon">Nomor WhatsApp / Telepon</label>
+    <input type="tel" id="telepon" name="telepon" required pattern="[0-9]+" placeholder="08xxxxxxxxxx">
+
+    <!-- Data Kucing -->
+    <label for="namaKucing">Nama Kucing</label>
+    <input type="text" id="namaKucing" name="namaKucing" required placeholder="Contoh: Mochi">
+
+    <label for="usia">Usia Kucing (bulan)</label>
+    <input type="number" id="usia" name="usia" min="1" required placeholder="Contoh: 12">
+
+    <label for="kelamin">Jenis Kelamin Kucing</label>
+    <select id="kelamin" name="kelamin" required>
+      <option value="">-- Pilih --</option>
+      <option value="Jantan">Jantan</option>
+      <option value="Betina">Betina</option>
+    </select>
+
+    <!-- Pilih Layanan -->
+    <label for="layanan">Layanan yang Diinginkan</label>
+    <select id="layanan" name="layanan" required>
+      <option value="">-- Pilih Layanan --</option>
+      <option value="Pemeriksaan Umum">Pemeriksaan Umum</option>
+      <option value="Vaksinasi">Vaksinasi</option>
+      <option value="Grooming">Grooming</option>
+      <option value="Perawatan Khusus">Perawatan Khusus</option>
+    </select>
+
+    <!-- Catatan Tambahan -->
+    <label for="catatan">Catatan Tambahan</label>
+    <textarea id="catatan" name="catatan" rows="4" placeholder="Contoh: alergi, luka, tidak suka air..."></textarea>
+
+    <button type="submit">Daftar Sekarang</button>
+  </form>
+
+  <script>
+    // Fungsi saat form disubmit
+    document.getElementById("formPerawatan").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Ambil data dari form
+      const nama = document.getElementById("nama").value;
+      const namaKucing = document.getElementById("namaKucing").value;
+
+      alert(`Terima kasih ${nama}! Kucing Anda (${namaKucing}) telah didaftarkan untuk layanan.`);
+
+      // Reset form
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>

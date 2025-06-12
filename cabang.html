@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cari Salon Peliharaan - PetShop Ceria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    .container {
+      background-color: white;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #d63384;
+      margin-bottom: 1rem;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border: 2px solid #d63384;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #f06292;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 2rem;
+      text-align: left;
+    }
+    li {
+      background-color: #ffe6f0;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .salon-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #d63384;
+    }
+    .salon-address {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.2rem;
+    }
+    .no-result {
+      margin-top: 2rem;
+      color: #999;
+      font-style: italic;
+    }
+    button.back-btn {
+      margin-top: 2rem;
+      padding: 0.8rem 2rem;
+      background-color: #ff80ab;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button.back-btn:hover {
+      background-color: #f06292;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🔍 Cari Tempat Salon Peliharaan</h1>
+    <input type="text" id="searchInput" placeholder="Cari berdasarkan nama atau lokasi..." onkeyup="filterSalons()" />
+
+    <ul id="salonList">
+       <li>
+        <a href="https://www.google.com/maps/search/?api=1&query=Me-O+Antasari+Pet+Shop+Jl.Pangeran+Antasari+No.26+Kota+Samarinda" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+            <div class="salon-name">Me-O Antasari Pet Shop</div>
+            <div class="salon-address">Jl.Pangeran Antasari No.26 Kota Samarinda</div>
+        </a>
+    </li>
+      <li>
+        <a href="https://www.google.com/maps/search/?api=1&query=Makmur+Petshop+Samarinda+Jl.Kemakmuran+No.90+Kota+Samarinda" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+            <div class="salon-name">Makmur Petshop Samarinda</div>
+            <div class="salon-address">Jl.Kemakmuran No.90 Kota Samarinda</div>
+        </a>
+    </li>
+      <li>
+        <a href="https://www.google.com/maps/search/?api=1&query=My+Queen+Shop+Jl.Anggur+Sidodadi+Kota+Samarinda" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+            <div class="salon-name">My Queen Shop</div>
+            <div class="salon-address">Jl.Anggur, Sidodadi Kota Samarinda</div>
+      </a>
+        </li>
+      <li>
+        <a href="https://www.google.com/maps/search/?api=1&query=Rumah+Kucing+RN+Jl.Gamelan+Sidodadi+Kota+Samarinda" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+            <div class="salon-name">Rumah Kucing RN (Penitipan & Grooming)</div>
+            <div class="salon-address">Jl.Gamelan, Sidodadi Kota Samarinda</div>
+      </a>
+        </li>
+      <li>
+        <a href="https://www.google.com/maps/search/?api=1&query=Pesona+Petshop+GATSU+Jl.Gatot+subroto+No.22A+Kota+Samarinda" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+            <div class="salon-name">Pesona Petshop GATSU</div>
+            <div class="salon-address">Jl.Gatot subroto No.22A Kota Samarind</div>
+      </a>
+        </li>
+    </ul>
+    <div id="noResult" class="no-result" style="display:none;">Tidak ada salon yang ditemukan.</div>
+
+    <button class="back-btn" onclick="window.history.back()">Kembali</button>
+  </div>
+
+  <script>
+    function filterSalons() {
+      const input = document.getElementById('searchInput');
+      const filter = input.value.toLowerCase();
+      const list = document.getElementById('salonList');
+      const salons = list.getElementsByTagName('li');
+      let visibleCount = 0;
+
+      for (let i = 0; i < salons.length; i++) {
+        const name = salons[i].querySelector('.salon-name').textContent.toLowerCase();
+        const address = salons[i].querySelector('.salon-address').textContent.toLowerCase();
+        if (name.includes(filter) || address.includes(filter)) {
+          salons[i].style.display = "";
+          visibleCount++;
+        } else {
+          salons[i].style.display = "none";
+        }
+      }
+
+      document.getElementById('noResult').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  </script>
+
+</body>
+</html>

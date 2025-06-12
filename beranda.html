@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beranda - PetShop Ceria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      background-color: #fff0f5;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      max-width: 720px;
+      margin: auto;
+    }
+
+    h1 {
+      color: #d63384;
+      margin-bottom: 0.2rem;
+      font-size: 2rem;
+    }
+
+    h2#greeting {
+      color: #555;
+      margin-top: 0;
+      font-weight: normal;
+      font-size: 1.2rem;
+    }
+
+    p {
+      color: #777;
+      margin-top: 0.5rem;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .menu button {
+      padding: 0.9rem 1.6rem;
+      background-color: #ff80ab;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      min-width: 120px;
+    }
+
+    .menu button:hover {
+      background-color: #f06292;
+      transform: translateY(-2px);
+    }
+
+    .logout-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, #ff6f91, #ff9472);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 40px;
+      margin-top: 2.5rem;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(255, 111, 145, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: linear-gradient(135deg, #ff4e7a, #ff7e5f);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(255, 111, 145, 0.5);
+    }
+
+    @media (max-width: 480px) {
+      .menu {
+        flex-direction: column;
+      }
+
+      .menu button {
+        width: 100%;
+      }
+
+      .logout-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🐾 Selamat Datang di PetShop Ceria!</h1>
+    <h2 id="greeting">Hai, pengguna!</h2>
+    <p>Kami siap membantu semua kebutuhan hewan peliharaan Anda 💕</p>
+
+    <div class="menu">
+      <button onclick="window.location.href='produk.html'">🛍️ Produk</button>
+      <button onclick="window.location.href='layanann.html'">💼 Layanan</button>
+      <button onclick="window.location.href='riwayat.html'">📝 Riwayat</button>
+      <button onclick="window.location.href='informasi.html'">📢 Informasi</button>
+      <button onclick="window.location.href='cabang.html'">🏪 Cabang</button>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">
+      🚪 <span>Keluar</span>
+    </button>
+  </div>
+
+  <script>
+    // Cek apakah user sudah login
+    const loginData = localStorage.getItem("loginAktif");
+    if (!loginData) {
+      window.location.href = "index.html";
+    } else {
+      const user = JSON.parse(loginData);
+      document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
+    }
+
+    // Fungsi logout
+    function logout() {
+      if (confirm("Apakah Anda yakin ingin keluar dari akun?")) {
+        localStorage.removeItem("loginAktif");
+        window.location.href = "index.html";
+      }
+    }
+  </script>
+
+</body>
+</html>
