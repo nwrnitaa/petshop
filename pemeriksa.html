@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Formulir Perawatan Kucing - PetShop Ceria</title>
   <style>
     body {
@@ -64,15 +64,13 @@
 
   <h1>🐾 Formulir Pemeriksaan Kucing</h1>
 
-  <form id="formPerawatan">
-    <!-- Data Customer -->
+  <form id="formPerawatan" action="pemeriksa.html" method="get">
     <label for="nama">Nama Lengkap Pemilik</label>
     <input type="text" id="nama" name="nama" required placeholder="Contoh: Rina Aulia">
 
     <label for="telepon">Nomor WhatsApp / Telepon</label>
     <input type="tel" id="telepon" name="telepon" required pattern="[0-9]+" placeholder="08xxxxxxxxxx">
 
-    <!-- Data Kucing -->
     <label for="namaKucing">Nama Kucing</label>
     <input type="text" id="namaKucing" name="namaKucing" required placeholder="Contoh: Mochi">
 
@@ -86,7 +84,6 @@
       <option value="Betina">Betina</option>
     </select>
 
-    <!-- Pilih Layanan -->
     <label for="layanan">Layanan yang Diinginkan</label>
     <select id="layanan" name="layanan" required>
       <option value="">-- Pilih Layanan --</option>
@@ -96,28 +93,11 @@
       <option value="Perawatan Khusus">Perawatan Khusus</option>
     </select>
 
-    <!-- Catatan Tambahan -->
     <label for="catatan">Catatan Tambahan</label>
     <textarea id="catatan" name="catatan" rows="4" placeholder="Contoh: alergi, luka, tidak suka air..."></textarea>
 
     <button type="submit">Daftar Sekarang</button>
-    <form action="pemeriksa.html" method="get">
   </form>
-  <script>
-    // Fungsi saat form disubmit
-    document.getElementById("formPerawatan").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      // Ambil data dari form
-      const nama = document.getElementById("nama").value;
-      const namaKucing = document.getElementById("namaKucing").value;
-
-      alert(`Terima kasih ${nama}! Kucing Anda (${namaKucing}) telah didaftarkan untuk layanan.`);
-
-      // Reset form
-      this.reset();
-    });
-  </script>
 
 </body>
 </html>
