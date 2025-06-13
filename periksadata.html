@@ -1,119 +1,93 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Konfirmasi Data</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Konfirmasi Data - PetShop Ceria</title>
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
-      background-color: #fef5f7;
-      margin: 0;
+      background-color: #fdf0f5;
       padding: 2rem;
-      display: flex;
-      justify-content: center;
+      color: #333;
     }
 
-    .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
+    .container {
+      background: #fff;
       max-width: 600px;
-      width: 100%;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      margin: auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     h2 {
-      color: #d63384;
       text-align: center;
-      margin-bottom: 1rem;
+      color: #d63384;
+      margin-bottom: 1.5rem;
     }
 
-    .data-list {
-      list-style: none;
-      padding: 0;
-      margin: 1rem 0;
+    p {
+      margin: 0.5rem 0;
     }
 
-    .data-list li {
-      margin-bottom: 0.75rem;
-      font-size: 1rem;
-    }
-
-    .data-label {
+    .label {
       font-weight: bold;
-      color: #444;
-    }
-
-    .data-value {
       color: #555;
     }
 
     .buttons {
+      margin-top: 2rem;
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-top: 2rem;
+      gap: 1rem;
     }
 
-    .buttons button {
-      padding: 0.8rem 1.5rem;
+    button {
+      padding: 0.75rem 1.5rem;
       font-weight: bold;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
-      transition: 0.3s ease;
     }
 
-    .btn-yes {
+    .yes {
       background-color: #28a745;
       color: white;
     }
 
-    .btn-yes:hover {
-      background-color: #218838;
-    }
-
-    .btn-no {
+    .no {
       background-color: #dc3545;
       color: white;
-    }
-
-    .btn-no:hover {
-      background-color: #c82333;
     }
   </style>
 </head>
 <body>
-
-  <div class="card">
+  <div class="container">
     <h2>Konfirmasi Data Anda</h2>
-    <ul class="data-list">
-      <li><span class="data-label">Nama:</span> <span class="data-value">Rina Putri</span></li>
-      <li><span class="data-label">Email:</span> <span class="data-value">rina@example.com</span></li>
-      <li><span class="data-label">Telepon:</span> <span class="data-value">0812-3456-7890</span></li>
-      <li><span class="data-label">Alamat:</span> <span class="data-value">Jl. Melati No. 10, Samarinda</span></li>
-      <li><span class="data-label">Layanan:</span> <span class="data-value">Grooming Hewan</span></li>
-    </ul>
+    <p><span class="label">Nama Pemilik:</span> <span id="konf-nama"></span></p>
+    <p><span class="label">No Telepon:</span> <span id="konf-telepon"></span></p>
+    <p><span class="label">Nama Kucing:</span> <span id="konf-namaKucing"></span></p>
+    <p><span class="label">Usia:</span> <span id="konf-usia"></span> bulan</p>
+    <p><span class="label">Jenis Kelamin:</span> <span id="konf-kelamin"></span></p>
+    <p><span class="label">Layanan:</span> <span id="konf-layanan"></span></p>
+    <p><span class="label">Catatan:</span> <span id="konf-catatan"></span></p>
 
     <div class="buttons">
-      <button class="btn-yes" onclick="submitData()">✅ Ya, Benar</button>
-      <button class="btn-no" onclick="ubahData()">❌ Tidak, Ubah</button>
+      <button class="yes" onclick="alert('Data dikonfirmasi! Terima kasih.')">✅ Sudah Benar</button>
+      <button class="no" onclick="window.history.back()">❌ Perbaiki</button>
     </div>
   </div>
 
   <script>
-    function submitData() {
-      alert("Data berhasil dikonfirmasi. Terima kasih!");
-      // window.location.href = 'berhasil.html'; // atau kirim data ke server
-    }
-
-    function ubahData() {
-      window.history.back(); // atau redirect ke halaman form sebelumnya
-    }
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("konf-nama").textContent = params.get("nama") || "-";
+    document.getElementById("konf-telepon").textContent = params.get("telepon") || "-";
+    document.getElementById("konf-namaKucing").textContent = params.get("namaKucing") || "-";
+    document.getElementById("konf-usia").textContent = params.get("usia") || "-";
+    document.getElementById("konf-kelamin").textContent = params.get("kelamin") || "-";
+    document.getElementById("konf-layanan").textContent = params.get("layanan") || "-";
+    document.getElementById("konf-catatan").textContent = params.get("catatan") || "-";
   </script>
-
 </body>
 </html>
