@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Formulir Perawatan Kucing</title>
+  <title>Formulir Perawatan Kucing - PetShop Ceria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
@@ -17,7 +19,7 @@
       color: #d63384;
     }
 
-    form {
+    form, .hasil, .loading {
       background-color: #ffffff;
       max-width: 600px;
       margin: 2rem auto;
@@ -39,7 +41,6 @@
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1rem;
-      box-sizing: border-box;
     }
 
     button {
@@ -58,35 +59,80 @@
     button:hover {
       background-color: #c2185b;
     }
+
+    .hasil, .loading {
+      display: none;
+    }
+
+    .hasil h2 {
+      text-align: center;
+      color: #0077b6;
+    }
+
+    .hasil p {
+      margin: 0.5rem 0;
+    }
+
+    .nomor-antrian {
+      font-size: 2rem;
+      color: #d63384;
+      text-align: center;
+      margin: 1rem 0;
+    }
+
+    .loading {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #999;
+    }
+
+    .spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #d63384;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin: 1rem auto;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .barcode-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
   </style>
 </head>
 <body>
 
   <h1>🐾 Formulir Pemeriksaan Kucing</h1>
 
-  <!-- ✅ Form dikirim ke pemeriksa.html -->
-  <form action="pemeriksa.html" method="get">
+  <form id="formPerawatan">
     <label for="nama">Nama Lengkap Pemilik</label>
-    <input type="text" id="nama" name="nama" required placeholder="Contoh: Rina Aulia">
+    <input type="text" id="nama" required>
 
     <label for="telepon">Nomor WhatsApp / Telepon</label>
-    <input type="tel" id="telepon" name="telepon" required pattern="[0-9]+" placeholder="08xxxxxxxxxx">
+    <input type="tel" id="telepon" required>
 
     <label for="namaKucing">Nama Kucing</label>
-    <input type="text" id="namaKucing" name="namaKucing" required placeholder="Contoh: Mochi">
+    <input type="text" id="namaKucing" required>
 
     <label for="usia">Usia Kucing (bulan)</label>
-    <input type="number" id="usia" name="usia" min="1" required placeholder="Contoh: 12">
+    <input type="number" id="usia" required>
 
     <label for="kelamin">Jenis Kelamin Kucing</label>
-    <select id="kelamin" name="kelamin" required>
+    <select id="kelamin" required>
       <option value="">-- Pilih --</option>
       <option value="Jantan">Jantan</option>
       <option value="Betina">Betina</option>
     </select>
 
     <label for="layanan">Layanan yang Diinginkan</label>
-    <select id="layanan" name="layanan" required>
+    <select id="layanan" required>
       <option value="">-- Pilih Layanan --</option>
       <option value="Pemeriksaan Umum">Pemeriksaan Umum</option>
       <option value="Vaksinasi">Vaksinasi</option>
@@ -95,10 +141,77 @@
     </select>
 
     <label for="catatan">Catatan Tambahan</label>
-    <textarea id="catatan" name="catatan" rows="4" placeholder="Contoh: alergi, luka, tidak suka air..."></textarea>
+    <textarea id="catatan" rows="3" placeholder="Contoh: alergi, tidak suka air..."></textarea>
 
     <button type="submit">Daftar Sekarang</button>
   </form>
 
-</body>
-</html>
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Memproses data pendaftaran...</p>
+  </div>
+
+  <div class="hasil" id="hasil">
+    <h2>✅ Pendaftaran Berhasil</h2>
+    <div class="nomor-antrian" id="antrian"></div>
+    <p><strong>Nama Pemilik:</strong> <span id="outputNama"></span></p>
+    <p><strong>Nomor Telepon:</strong> <span id="outputTelepon"></span></p>
+    <p><strong>Nama Kucing:</strong> <span id="outputKucing"></span></p>
+    <p><strong>Usia Kucing:</strong> <span id="outputUsia"></span> bulan</p>
+    <p><strong>Jenis Kelamin:</strong> <span id="outputKelamin"></span></p>
+    <p><strong>Layanan:</strong> <span id="outputLayanan"></span></p>
+    <p><strong>Catatan:</strong> <span id="outputCatatan"></span></p>
+    <div class="barcode-container">
+      <svg id="barcode"></svg>
+    </div>
+  </div>
+
+ <script>
+  document.getElementById("formPerawatan").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nama = document.getElementById("nama").value;
+    const telepon = document.getElementById("telepon").value;
+    const namaKucing = document.getElementById("namaKucing").value;
+    const usia = document.getElementById("usia").value;
+    const kelamin = document.getElementById("kelamin").value;
+    const layanan = document.getElementById("layanan").value;
+    const catatan = document.getElementById("catatan").value || "-";
+
+    // Nomor antrian dari localStorage
+    let nomor = parseInt(localStorage.getItem("antrian")) || 0;
+    nomor++;
+    localStorage.setItem("antrian", nomor);
+
+    // Buat ID unik untuk barcode
+    const randomKode = "petshop ceria" + Math.floor(100000 + Math.random() * 900000); // Contoh: PET-654321
+
+    // Tampilkan loading
+    document.getElementById("formPerawatan").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+
+    setTimeout(() => {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("hasil").style.display = "block";
+
+      document.getElementById("antrian").textContent = "🎟️ Nomor Antrian Anda: " + nomor;
+      document.getElementById("outputNama").textContent = nama;
+      document.getElementById("outputTelepon").textContent = telepon;
+      document.getElementById("outputKucing").textContent = namaKucing;
+      document.getElementById("outputUsia").textContent = usia;
+      document.getElementById("outputKelamin").textContent = kelamin;
+      document.getElementById("outputLayanan").textContent = layanan;
+      document.getElementById("outputCatatan").textContent = catatan;
+
+      // Tampilkan barcode dari randomKode
+      JsBarcode("#barcode", randomKode, {
+        format: "CODE128",
+        lineColor: "#d63384",
+        width: 2,
+        height: 60,
+        displayValue: true
+      });
+
+    }, 1500);
+  });
+</script>
