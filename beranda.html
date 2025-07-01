@@ -70,11 +70,36 @@
       display: none;
       animation: fadeSlide 1s ease-in-out;
       border-radius: 20px;
+      transition: transform 0.4s ease;
+    }
+
+    .slide-img:hover {
+      transform: scale(1.02);
     }
 
     @keyframes fadeSlide {
       from { opacity: 0; }
       to { opacity: 1; }
+    }
+
+    .dot-container {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 4px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: #ff64a5;
     }
 
     .menu {
@@ -129,11 +154,6 @@
       font-size: 0.9rem;
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
     @media (max-width: 480px) {
       .menu {
         flex-direction: column;
@@ -154,14 +174,20 @@
 
   <main>
     <!-- Slideshow Banner -->
-    <div class="slideshow-container">
+    <div class="slideshow-container" id="slideshow">
       <img class="slide-img" src="kucing1.jpg" alt="Slide 1">
       <img class="slide-img" src="Kucing.jpg" alt="Slide 2">
       <img class="slide-img" src="kucingvip.gif" alt="GIF Slide">
       <img class="slide-img" src="rawwr.jpg" alt="Slide 3">
       <img class="slide-img" src="anjing.jpg" alt="Slide 4">
-      <img class="slide-img" src="anjing1.jpeg" alt="Slide 5">
-      <img class="slide-img" src="anjing2.jpg" alt="Slide 6">
+    </div>
+
+    <div class="dot-container">
+      <span class="dot" onclick="setSlide(0)"></span>
+      <span class="dot" onclick="setSlide(1)"></span>
+      <span class="dot" onclick="setSlide(2)"></span>
+      <span class="dot" onclick="setSlide(3)"></span>
+      <span class="dot" onclick="setSlide(4)"></span>
     </div>
 
     <h2 id="greeting">Hai, pengguna!</h2>
@@ -190,8 +216,13 @@
     if (!loginData) {
       window.location.href = "index.html";
     } else {
-      const user = JSON.parse(loginData);
-      document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
+      try {
+        const user = JSON.parse(loginData);
+        document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
+      } catch (e) {
+        localStorage.removeItem("loginAktif");
+        window.location.href = "index.html";
+      }
     }
 
     function logout() {
@@ -206,20 +237,27 @@
       setTimeout(() => window.location.href = page, 300);
     }
 
-    // Slideshow otomatis
+    // Slideshow logic
     let slideIndex = 0;
     const slides = document.getElementsByClassName("slide-img");
+    const dots = document.getElementsByClassName("dot");
 
     function showSlides() {
       for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
+        dots[i].classList.remove("active");
       }
 
-      slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1; }
+      slides[slideIndex].style.display = "block";
+      dots[slideIndex].classList.add("active");
 
-      slides[slideIndex - 1].style.display = "block";
-      setTimeout(showSlides, 5000);
+      slideIndex = (slideIndex + 1) % slides.length;
+      setTimeout(showSlides, 5000); // ganti slide tiap 5 detik
+    }
+
+    function setSlide(n) {
+      slideIndex = n;
+      showSlides();
     }
 
     showSlides();
