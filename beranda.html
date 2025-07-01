@@ -4,45 +4,77 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Beranda - PetShop Ceria</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Quicksand', sans-serif;
       margin: 0;
-      background-color: #fff0f5;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #fff0f5, #ffe0f0);
+      background-image: url("https://emoji.gg/assets/emoji/2371-pawprints.gif");
+      background-size: 50px;
+      background-repeat: repeat;
+      animation: bgScroll 60s linear infinite;
+    }
+
+    @keyframes bgScroll {
+      from { background-position: 0 0; }
+      to { background-position: 1000px 1000px; }
+    }
+
+    header {
+      background-color: #ff90bb;
       padding: 2rem;
       text-align: center;
+      color: white;
+      border-bottom: 5px solid #ff64a5;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .container {
-      background-color: #ffffff;
-      padding: 3rem 2rem;
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      max-width: 720px;
+    header h1 {
+      font-family: 'Fredoka One', cursive;
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    main {
+      max-width: 960px;
       margin: auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-top: 2rem;
     }
 
-    h1 {
-      color: #d63384;
-      margin-bottom: 0.2rem;
-      font-size: 2rem;
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
 
-    h2#greeting {
-      color: #555;
-      margin-top: 0;
-      font-weight: normal;
-      font-size: 1.2rem;
+    .slide-img {
+      width: 100%;
+      display: none;
+      animation: fadeSlide 1s ease-in-out;
+      border-radius: 20px;
     }
 
-    p {
-      color: #777;
-      margin-top: 0.5rem;
+    @keyframes fadeSlide {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .menu {
@@ -54,45 +86,52 @@
     }
 
     .menu button {
-      padding: 0.9rem 1.6rem;
-      background-color: #ff80ab;
+      padding: 1rem 2rem;
+      background: linear-gradient(to right, #ff64a5, #ff90bb);
       color: white;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s ease;
-      min-width: 120px;
-    }
-
-    .menu button:hover {
-      background-color: #f06292;
-      transform: translateY(-2px);
-    }
-
-    .logout-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      background: linear-gradient(135deg, #ff6f91, #ff9472);
-      color: #fff;
       font-size: 1rem;
       font-weight: bold;
       border: none;
-      padding: 1rem 2rem;
-      border-radius: 40px;
-      margin-top: 2.5rem;
+      border-radius: 16px;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(255, 111, 145, 0.4);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+    }
+
+    .menu button:hover {
+      background: linear-gradient(to right, #ff4a9d, #ff78b8);
+      transform: translateY(-3px);
+    }
+
+    .logout-btn {
+      margin-top: 2rem;
+      padding: 1rem 2.5rem;
+      background: #ff6f91;
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 8px 18px rgba(255,111,145,0.3);
     }
 
     .logout-btn:hover {
-      background: linear-gradient(135deg, #ff4e7a, #ff7e5f);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 22px rgba(255, 111, 145, 0.5);
+      background: #ff507a;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
 
     @media (max-width: 480px) {
@@ -100,11 +139,7 @@
         flex-direction: column;
       }
 
-      .menu button {
-        width: 100%;
-      }
-
-      .logout-btn {
+      .menu button, .logout-btn {
         width: 100%;
       }
     }
@@ -112,26 +147,45 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>🐾 Selamat Datang di PetShop Ceria!</h1>
-    <h2 id="greeting">Hai, pengguna!</h2>
-    <p>Kami siap membantu semua kebutuhan hewan peliharaan Anda 💕</p>
+  <header>
+    <h1>🐾 PetShop Ceria</h1>
+    <p style="margin: 0; font-size: 1.1rem;">Hewan Sehat, Hati Senang 💖</p>
+  </header>
 
-    <div class="menu">
-      <button onclick="window.location.href='produk.html'">🛍️ Produk</button>
-      <button onclick="window.location.href='layanann.html'">💼 Layanan</button>
-      <button onclick="window.location.href='riwayat.html'">📝 Riwayat</button>
-      <button onclick="window.location.href='informasi.html'">📢 Informasi</button>
-      <button onclick="window.location.href='cabang.html'">🏪 Cabang</button>
+  <main>
+    <!-- Slideshow Banner -->
+    <div class="slideshow-container">
+      <img class="slide-img" src="kucing1.jpg" alt="Slide 1">
+      <img class="slide-img" src="Kucing.jpg" alt="Slide 2">
+      <img class="slide-img" src="kucingvip.gif" alt="GIF Slide">
+      <img class="slide-img" src="rawwr.jpg" alt="Slide 3">
+      <img class="slide-img" src="anjing.jpg" alt="Slide 4">
+      <img class="slide-img" src="anjing1.jpeg" alt="Slide 5">
+      <img class="slide-img" src="anjing2.jpg" alt="Slide 6">
     </div>
 
-    <button class="logout-btn" onclick="logout()">
-      🚪 <span>Keluar</span>
-    </button>
-  </div>
+    <h2 id="greeting">Hai, pengguna!</h2>
+    <p>Kami siap membantu semua kebutuhan hewan peliharaan Anda dengan penuh cinta!</p>
+
+    <div class="menu">
+      <button onclick="menuClick('produk.html')">🛍️ Produk</button>
+      <button onclick="menuClick('layanann.html')">💼 Layanan</button>
+      <button onclick="menuClick('riwayat.html')">📝 Riwayat</button>
+      <button onclick="menuClick('informasi.html')">📢 Informasi</button>
+      <button onclick="menuClick('cabang.html')">🏪 Cabang</button>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">🚪 Keluar</button>
+  </main>
+
+  <footer>
+    &copy; 2025 PetShop Ceria.
+  </footer>
+
+  <!-- Sound Effect -->
+  <audio id="meowSound" src="https://www.fesliyanstudios.com/play-mp3/4383" preload="auto"></audio>
 
   <script>
-    // Cek apakah user sudah login
     const loginData = localStorage.getItem("loginAktif");
     if (!loginData) {
       window.location.href = "index.html";
@@ -140,13 +194,35 @@
       document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
     }
 
-    // Fungsi logout
     function logout() {
       if (confirm("Apakah Anda yakin ingin keluar dari akun?")) {
         localStorage.removeItem("loginAktif");
         window.location.href = "index.html";
       }
     }
+
+    function menuClick(page) {
+      document.getElementById("meowSound").play();
+      setTimeout(() => window.location.href = page, 300);
+    }
+
+    // Slideshow otomatis
+    let slideIndex = 0;
+    const slides = document.getElementsByClassName("slide-img");
+
+    function showSlides() {
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; }
+
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 5000);
+    }
+
+    showSlides();
   </script>
 
 </body>
