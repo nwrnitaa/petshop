@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Pengguna - PetShop Ceria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #ffe0f0, #fff0f5);
+      padding: 2rem;
+    }
+
+    .profile-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .profile-header img {
+      width: 100px;
+      border-radius: 50%;
+      border: 4px solid #ff90bb;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .profile-header h2 {
+      margin-top: 1rem;
+      font-size: 1.8rem;
+      color: #ff64a5;
+    }
+
+    .profile-info {
+      line-height: 1.8;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .profile-info strong {
+      color: #ff64a5;
+      display: inline-block;
+      width: 100px;
+    }
+
+    .back-btn {
+      margin-top: 2rem;
+      display: block;
+      text-align: center;
+    }
+
+    .back-btn a {
+      background: #ff90bb;
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .back-btn a:hover {
+      background: #ff64a5;
+    }
+
+    @media (max-width: 480px) {
+      .profile-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+
+      .profile-info strong {
+        width: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-container">
+    <div class="profile-header">
+      <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil">
+      <h2 id="namaPengguna">Nama Pengguna</h2>
+    </div>
+
+    <div class="profile-info">
+      <p><strong>Email:</strong> <span id="emailPengguna">email@example.com</span></p>
+      <p><strong>Telepon:</strong> <span id="teleponPengguna">08xxxxxxxxxx</span></p>
+      <p><strong>Alamat:</strong> <span id="alamatPengguna">Alamat lengkap pengguna</span></p>
+    </div>
+
+    <div class="back-btn">
+      <a href="beranda.html">⬅️ Kembali ke Beranda</a>
+    </div>
+  </div>
+
+  <script>
+    const dataLogin = localStorage.getItem("loginAktif");
+    if (!dataLogin) {
+      alert("Silakan login terlebih dahulu.");
+      window.location.href = "index.html";
+    } else {
+      const pengguna = JSON.parse(dataLogin);
+      document.getElementById("namaPengguna").innerText = pengguna.nama || "Nama tidak tersedia";
+      document.getElementById("emailPengguna").innerText = pengguna.email || "Belum diisi";
+      document.getElementById("teleponPengguna").innerText = pengguna.telepon || "Belum diisi";
+      document.getElementById("alamatPengguna").innerText = pengguna.alamat || "Belum diisi";
+    }
+  </script>
+
+</body>
+</html>
