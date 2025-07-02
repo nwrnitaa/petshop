@@ -44,6 +44,29 @@
       font-size: 2.5rem;
     }
 
+    #profileButton {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      display: none;
+    }
+
+    #profileButton button {
+      padding: 0.6rem 1.2rem;
+      background: white;
+      color: #ff64a5;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+    }
+
+    #profileButton button:hover {
+      background: #ffe3ec;
+    }
+
     main {
       max-width: 960px;
       margin: auto;
@@ -170,10 +193,13 @@
   <header>
     <h1>🐾 PetShop Ceria</h1>
     <p style="margin: 0; font-size: 1.1rem;">Hewan Sehat, Hati Senang 💖</p>
+    <div id="profileButton">
+      <button onclick="goToProfile()">👤 Profil</button>
+    </div>
   </header>
 
   <main>
-    <!-- Slideshow Banner -->
+    <!-- Slideshow -->
     <div class="slideshow-container" id="slideshow">
       <img class="slide-img" src="kucing1.jpg" alt="Slide 1">
       <img class="slide-img" src="Kucing.jpg" alt="Slide 2">
@@ -208,17 +234,21 @@
     &copy; 2025 PetShop Ceria.
   </footer>
 
-  <!-- Sound Effect -->
   <audio id="meowSound" src="https://www.fesliyanstudios.com/play-mp3/4383" preload="auto"></audio>
 
   <script>
     const loginData = localStorage.getItem("loginAktif");
+    const slides = document.getElementsByClassName("slide-img");
+    const dots = document.getElementsByClassName("dot");
+    let slideIndex = 0;
+
     if (!loginData) {
       window.location.href = "index.html";
     } else {
       try {
         const user = JSON.parse(loginData);
         document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
+        document.getElementById("profileButton").style.display = "block";
       } catch (e) {
         localStorage.removeItem("loginAktif");
         window.location.href = "index.html";
@@ -237,10 +267,10 @@
       setTimeout(() => window.location.href = page, 300);
     }
 
-    // Slideshow logic
-    let slideIndex = 0;
-    const slides = document.getElementsByClassName("slide-img");
-    const dots = document.getElementsByClassName("dot");
+    function goToProfile() {
+      document.getElementById("meowSound").play();
+      setTimeout(() => window.location.href = "profil.html", 300);
+    }
 
     function showSlides() {
       for (let i = 0; i < slides.length; i++) {
@@ -252,7 +282,7 @@
       dots[slideIndex].classList.add("active");
 
       slideIndex = (slideIndex + 1) % slides.length;
-      setTimeout(showSlides, 5000); // ganti slide tiap 5 detik
+      setTimeout(showSlides, 5000);
     }
 
     function setSlide(n) {
@@ -262,6 +292,5 @@
 
     showSlides();
   </script>
-
 </body>
 </html>
