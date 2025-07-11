@@ -250,18 +250,6 @@
       location.reload();
     }
 
-    function ubahPassword() {
-      const lama = prompt("Masukkan password lama:");
-      const baru = prompt("Masukkan password baru:");
-      if (!pengguna.password || pengguna.password === lama) {
-        pengguna.password = baru;
-        localStorage.setItem("loginAktif", JSON.stringify(pengguna));
-        alert("Password berhasil diubah!");
-      } else {
-        alert("Password lama salah!");
-      }
-    }
-
     function logout() {
       const konfirmasi = confirm("Apakah Anda yakin ingin keluar?");
       if (konfirmasi) {
