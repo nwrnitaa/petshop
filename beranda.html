@@ -81,7 +81,7 @@
     .slideshow-container {
       position: relative;
       width: 100%;
-      max-width: 700px;
+      max-width: 500px; /* Ukuran dikecilkan dari 700px */
       margin: 0 auto 2rem auto;
       overflow: hidden;
       border-radius: 20px;
@@ -90,6 +90,8 @@
 
     .slide-img {
       width: 100%;
+      height: 280px; /* Ukuran tinggi gambar */
+      object-fit: cover;
       display: none;
       animation: fadeSlide 1s ease-in-out;
       border-radius: 20px;
@@ -168,7 +170,7 @@
       }
     }
 
-    /* 🐶 Anjing kiri dan 🐱 kucing kanan animasi */
+    /* Animasi kucing & anjing */
     .dog-animation {
       position: fixed;
       bottom: 0;
@@ -234,10 +236,8 @@
     </div>
   </main>
 
-  <!-- 🐶 Anjing Animasi -->
+  <!-- Animasi -->
   <img src="https://i.ibb.co/fF3p47n/dog-walk.gif" alt="Anjing" class="dog-animation" />
-
-  <!-- 🐱 Kucing Animasi -->
   <img src="https://i.ibb.co/hXKw99p/cat-sit.gif" alt="Kucing" class="cat-animation" />
 
   <footer>
