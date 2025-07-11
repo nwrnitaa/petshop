@@ -131,26 +131,43 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.5rem;
       margin: 2rem 0;
     }
 
-    .menu button {
-      padding: 1rem 2rem;
-      background: linear-gradient(to right, #ff64a5, #ff90bb);
-      color: white;
-      font-size: 1rem;
-      font-weight: bold;
-      border: none;
+    .card {
+      background: #fff0f8;
+      border: 2px solid #ffb6d9;
       border-radius: 16px;
+      width: 180px;
+      padding: 1.2rem;
+      text-align: center;
       cursor: pointer;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-      transition: 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
-    .menu button:hover {
-      background: linear-gradient(to right, #ff4a9d, #ff78b8);
-      transform: translateY(-3px);
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      background: #ffe6f2;
+    }
+
+    .card .emoji {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card h3 {
+      margin: 0.5rem 0 0.3rem;
+      color: #ff64a5;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #666;
     }
 
     footer {
@@ -160,12 +177,8 @@
       font-size: 0.9rem;
     }
 
-    @media (max-width: 480px) {
-      .menu {
-        flex-direction: column;
-      }
-
-      .menu button {
+    @media (max-width: 600px) {
+      .card {
         width: 100%;
       }
     }
@@ -217,6 +230,7 @@
       <img class="slide-img" src="kucingvip.gif" alt="Slide 3">
       <img class="slide-img" src="rawwr.jpg" alt="Slide 4">
       <img class="slide-img" src="anjing.jpg" alt="Slide 5">
+      <img class="slide-img" src="images.jpg" alt="Slide 6">
     </div>
 
     <div class="dot-container" id="dotContainer"></div>
@@ -224,17 +238,38 @@
     <h2 id="greeting">Hai, pengguna!</h2>
     <p>Kami siap membantu semua kebutuhan hewan peliharaan Anda dengan penuh cinta!</p>
 
+    <!-- Menu dalam bentuk card -->
     <div class="menu">
-      <button onclick="menuClick('produk.html')">🛍️ Produk</button>
-      <button onclick="menuClick('layanann.html')">💼 Layanan</button>
-      <button onclick="menuClick('riwayat.html')">📝 Riwayat</button>
-      <button onclick="menuClick('informasi.html')">📢 Informasi</button>
-      <button onclick="menuClick('cabang.html')">🏪 Cabang</button>
+      <div class="card" onclick="menuClick('produk.html')">
+        <div class="emoji">🛍️</div>
+        <h3>Produk</h3>
+        <p>Perlengkapan & makanan hewan</p>
+      </div>
+      <div class="card" onclick="menuClick('layanann.html')">
+        <div class="emoji">💼</div>
+        <h3>Layanan</h3>
+        <p>Grooming & perawatan profesional</p>
+      </div>
+      <div class="card" onclick="menuClick('riwayat.html')">
+        <div class="emoji">📝</div>
+        <h3>Riwayat</h3>
+        <p>Catatan transaksi & booking</p>
+      </div>
+      <div class="card" onclick="menuClick('informasi.html')">
+        <div class="emoji">📢</div>
+        <h3>Informasi</h3>
+        <p>Tips merawat hewan peliharaan</p>
+      </div>
+      <div class="card" onclick="menuClick('cabang.html')">
+        <div class="emoji">🏪</div>
+        <h3>Cabang</h3>
+        <p>Temukan toko PetShop Ceria terdekat</p>
+      </div>
     </div>
   </main>
 
-  <img src="ANJING.img" alt="Anjing" class="dog-animation" />
-  <img src="KUCING.img" alt="Kucing" class="cat-animation" />
+  <img src="https://i.ibb.co/fF3p47n/dog-walk.gif" alt="Anjing" class="dog-animation" />
+  <img src="https://i.ibb.co/hXKw99p/cat-sit.gif" alt="Kucing" class="cat-animation" />
 
   <footer>
     &copy; 2025 PetShop Ceria.
