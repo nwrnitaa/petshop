@@ -38,17 +38,22 @@
 
     .produk-container {
       display: flex;
-      overflow-x: auto;
+      flex-direction: column;
       gap: 1.5rem;
-      padding-bottom: 1rem;
-      scroll-snap-type: x mandatory;
     }
 
-    .produk-container::-webkit-scrollbar {
+    .produk-row {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+
+    .produk-row::-webkit-scrollbar {
       height: 8px;
     }
 
-    .produk-container::-webkit-scrollbar-thumb {
+    .produk-row::-webkit-scrollbar-thumb {
       background-color: #d63384;
       border-radius: 10px;
     }
@@ -60,7 +65,6 @@
       border-radius: 12px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       overflow: hidden;
-      scroll-snap-align: start;
       transition: transform 0.2s;
     }
 
@@ -172,21 +176,22 @@
 </head>
 <body>
 
-  <h1>🛍️ Produk PetShop Ceria</h1>
+<h1>🛍️ Produk PetShop Ceria</h1>
 
-  <nav id="filter-menu">
-    <span onclick="filterKategori('semua')">Semua</span> |
-    <span onclick="filterKategori('makanan')">Makanan Hewan</span> |
-    <span onclick="filterKategori('aksesori')">Aksesori Hewan</span> |
-    <span onclick="filterKategori('mainan')">Mainan Hewan</span> |
-    <span onclick="filterKategori('rumah')">Rumah Hewan</span> |
-    <span onclick="filterKategori('perawatan')">Perawatan Hewan</span>
-  </nav>
+<nav id="filter-menu">
+  <span onclick="filterKategori('semua')">Semua</span> |
+  <span onclick="filterKategori('makanan')">Makanan</span> |
+  <span onclick="filterKategori('mainan')">Mainan</span> |
+  <span onclick="filterKategori('aksesori')">Aksesori</span> |
+  <span onclick="filterKategori('rumah')">Rumah</span> |
+  <span onclick="filterKategori('perawatan')">Perawatan</span>
+</nav>
 
-  <div class="cart-icon" onclick="toggleCart()">🛒 Keranjang (<span id="cart-count">0</span>)</div>
+<div class="cart-icon" onclick="toggleCart()">🛒 Keranjang (<span id="cart-count">0</span>)</div>
 
-  <div class="produk-container" id="produkContainer">
-    <!-- Contoh produk -->
+<!-- Produk dalam 3 baris -->
+<div class="produk-container">
+  <div class="produk-row">
     <div class="card" data-kategori="makanan">
       <img src="fooddog_premium.jpg" alt="Dog Food">
       <div class="card-content">
@@ -195,7 +200,6 @@
         <button class="btn" onclick="addToCart('Makanan Anjing Premium', 45000)">Beli</button>
       </div>
     </div>
-
     <div class="card" data-kategori="mainan">
       <img src="mainan_kucing.jpg" alt="Mainan Kucing">
       <div class="card-content">
@@ -204,7 +208,6 @@
         <button class="btn" onclick="addToCart('Mainan Kucing Interaktif', 45000)">Beli</button>
       </div>
     </div>
-
     <div class="card" data-kategori="aksesori">
       <img src="kalung_kucing.jpg" alt="Kalung Kucing">
       <div class="card-content">
@@ -213,75 +216,129 @@
         <button class="btn" onclick="addToCart('Kalung Kucing', 5000)">Beli</button>
       </div>
     </div>
-    <!-- Tambahkan produk lain sesuai kebutuhan -->
   </div>
 
-  <a href="beranda.html" class="back-link">⬅ Kembali ke Beranda</a>
-
-  <!-- Modal Keranjang -->
-  <div class="modal" id="cartModal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="toggleCart()">✖</span>
-      <h2>🧾 Keranjang Belanja</h2>
-      <ul id="cart-items" style="padding-left: 1rem;"></ul>
-      <strong>Total: Rp <span id="cart-total">0</span></strong>
-      <button class="checkout-btn" onclick="checkout()">Checkout</button>
+  <div class="produk-row">
+    <div class="card" data-kategori="rumah">
+      <img src="sleep_cat.jpg" alt="Tempat Tidur">
+      <div class="card-content">
+        <div class="card-title">Tempat Tidur Kucing</div>
+        <div class="card-price">Rp 80.000</div>
+        <button class="btn" onclick="addToCart('Tempat Tidur Kucing', 80000)">Beli</button>
+      </div>
+    </div>
+    <div class="card" data-kategori="makanan">
+      <img src="whiskas.jpg" alt="Whiskas">
+      <div class="card-content">
+        <div class="card-title">Whiskas Basah Kucing</div>
+        <div class="card-price">Rp 7.000</div>
+        <button class="btn" onclick="addToCart('Whiskas Basah Kucing', 7000)">Beli</button>
+      </div>
+    </div>
+    <div class="card" data-kategori="rumah">
+      <img src="tas_cat.jpg" alt="Tas Kucing">
+      <div class="card-content">
+        <div class="card-title">Tas Kucing</div>
+        <div class="card-price">Rp 75.000</div>
+        <button class="btn" onclick="addToCart('Tas Kucing', 75000)">Beli</button>
+      </div>
     </div>
   </div>
 
-  <script>
-    let cart = [];
+  <div class="produk-row">
+    <div class="card" data-kategori="perawatan">
+      <img src="sampo kucing.jpg" alt="Sampo">
+      <div class="card-content">
+        <div class="card-title">Sampo Hewan</div>
+        <div class="card-price">Rp 35.000</div>
+        <button class="btn" onclick="addToCart('Sampo Hewan', 35000)">Beli</button>
+      </div>
+    </div>
+    <div class="card" data-kategori="perawatan">
+      <img src="sisir_kucing.jpg" alt="Sisir">
+      <div class="card-content">
+        <div class="card-title">Sisir Grooming</div>
+        <div class="card-price">Rp 18.000</div>
+        <button class="btn" onclick="addToCart('Sisir Grooming', 18000)">Beli</button>
+      </div>
+    </div>
+    <div class="card" data-kategori="mainan">
+      <img src="bola_anjing.jpg" alt="Bola">
+      <div class="card-content">
+        <div class="card-title">Bola Mainan Anjing</div>
+        <div class="card-price">Rp 20.000</div>
+        <button class="btn" onclick="addToCart('Bola Mainan Anjing', 20000)">Beli</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      updateCartUI();
-      alert(`${name} telah ditambahkan ke keranjang.`);
+<a href="beranda.html" class="back-link">⬅ Kembali ke Beranda</a>
+
+<!-- Modal Keranjang -->
+<div class="modal" id="cartModal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="toggleCart()">✖</span>
+    <h2>🧾 Keranjang Belanja</h2>
+    <ul id="cart-items" style="padding-left: 1rem;"></ul>
+    <strong>Total: Rp <span id="cart-total">0</span></strong>
+    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+  </div>
+</div>
+
+<script>
+  let cart = [];
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCartUI();
+    alert(`${name} telah ditambahkan ke keranjang.`);
+  }
+
+  function updateCartUI() {
+    document.getElementById("cart-count").innerText = cart.length;
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    cartItems.innerHTML = "";
+    let total = 0;
+    cart.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = `${item.name} - Rp ${item.price.toLocaleString("id-ID")}`;
+      cartItems.appendChild(li);
+      total += item.price;
+    });
+    cartTotal.textContent = total.toLocaleString("id-ID");
+  }
+
+  function toggleCart() {
+    const modal = document.getElementById("cartModal");
+    modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+  }
+
+  function checkout() {
+    if (cart.length === 0) {
+      alert("Keranjang masih kosong!");
+      return;
     }
+    localStorage.setItem("keranjang", JSON.stringify(cart));
+    window.location.href = "pembayaran.html";
+  }
 
-    function updateCartUI() {
-      document.getElementById("cart-count").innerText = cart.length;
-      const cartItems = document.getElementById("cart-items");
-      const cartTotal = document.getElementById("cart-total");
-      cartItems.innerHTML = "";
-      let total = 0;
-      cart.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.name} - Rp ${item.price.toLocaleString("id-ID")}`;
-        cartItems.appendChild(li);
-        total += item.price;
-      });
-      cartTotal.textContent = total.toLocaleString("id-ID");
+  window.onclick = function(event) {
+    const modal = document.getElementById("cartModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
     }
+  };
 
-    function toggleCart() {
-      const modal = document.getElementById("cartModal");
-      modal.style.display = modal.style.display === "flex" ? "none" : "flex";
-    }
+  function filterKategori(kategori) {
+    const cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+      const cardKategori = card.getAttribute("data-kategori");
+      card.style.display = (kategori === "semua" || cardKategori === kategori) ? "block" : "none";
+    });
+  }
+</script>
 
-    function checkout() {
-      if (cart.length === 0) {
-        alert("Keranjang masih kosong!");
-        return;
-      }
-
-      localStorage.setItem("keranjang", JSON.stringify(cart));
-      window.location.href = "pembayaran.html";
-    }
-
-    window.onclick = function(event) {
-      const modal = document.getElementById("cartModal");
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    };
-
-    function filterKategori(kategori) {
-      const cards = document.querySelectorAll(".card");
-      cards.forEach(card => {
-        const cardKategori = card.getAttribute("data-kategori");
-        card.style.display = (kategori === "semua" || cardKategori === kategori) ? "block" : "none";
-      });
-    }
-  </script>
 </body>
 </html>
