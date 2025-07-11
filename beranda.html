@@ -7,85 +7,297 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* style lama tetap -- tambahan kecil di bawah */
-
-    .special-offers {
-      margin-top: 2rem;
-      background: #fffafc;
-      border-top: 4px dashed #ff64a5;
-      padding: 2rem 1rem;
-      border-radius: 20px;
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
     }
 
-    .special-offers h2 {
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #fff0f5, #ffe0f0);
+      background-image: url("https://emoji.gg/assets/emoji/2371-pawprints.gif");
+      background-size: 50px;
+      background-repeat: repeat;
+      animation: bgScroll 60s linear infinite;
+    }
+
+    @keyframes bgScroll {
+      from { background-position: 0 0; }
+      to { background-position: 1000px 1000px; }
+    }
+
+    header {
+      background-color: #ff90bb;
+      padding: 2rem;
       text-align: center;
-      color: #ff64a5;
-      margin-bottom: 1rem;
-      font-size: 1.6rem;
+      color: white;
+      border-bottom: 5px solid #ff64a5;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .offers-container {
+    header h1 {
+      font-family: 'Fredoka One', cursive;
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    #profileButton {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      display: none;
+    }
+
+    #profileButton button {
+      padding: 0.6rem 1.2rem;
+      background: white;
+      color: #ff64a5;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+    }
+
+    #profileButton button:hover {
+      background: #ffe3ec;
+    }
+
+    main {
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .slide-img {
+      width: 100%;
+      display: none;
+      animation: fadeSlide 1s ease-in-out;
+      border-radius: 20px;
+      transition: transform 0.4s ease;
+    }
+
+    .slide-img:hover {
+      transform: scale(1.02);
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .dot-container {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 4px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: #ff64a5;
+    }
+
+    .menu {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
+      margin: 2rem 0;
     }
 
-    .offer-box {
-      background: #fff0f5;
-      border-radius: 16px;
-      padding: 1rem;
-      width: 280px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      transition: 0.3s ease;
-      text-align: center;
-    }
-
-    .offer-box:hover {
-      transform: translateY(-5px) scale(1.03);
-      background: #ffe2ef;
-    }
-
-    .offer-box img {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-    }
-
-    .offer-box p {
+    .menu button {
+      padding: 1rem 2rem;
+      background: linear-gradient(to right, #ff64a5, #ff90bb);
+      color: white;
+      font-size: 1rem;
       font-weight: bold;
-      color: #c2185b;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+    }
+
+    .menu button:hover {
+      background: linear-gradient(to right, #ff4a9d, #ff78b8);
+      transform: translateY(-3px);
+    }
+
+    .logout-btn {
+      margin-top: 2rem;
+      padding: 1rem 2.5rem;
+      background: #ff6f91;
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 18px rgba(255,111,145,0.3);
+    }
+
+    .logout-btn:hover {
+      background: #ff507a;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 480px) {
+      .menu {
+        flex-direction: column;
+      }
+
+      .menu button, .logout-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Semua konten sebelumnya tidak diubah -->
+  <header>
+    <h1>🐾 PetShop Ceria</h1>
+    <p style="margin: 0; font-size: 1.1rem;">Hewan Sehat, Hati Senang 💖</p>
+    <div id="profileButton">
+      <button onclick="goToProfile()">👤 Profil</button>
+    </div>
+  </header>
 
   <main>
-    <!-- ... slideshow dan menu ... -->
+    <!-- Slideshow -->
+    <div class="slideshow-container" id="slideshow">
+      <img class="slide-img" src="kucing1.jpg" alt="Slide 1">
+      <img class="slide-img" src="Kucing.jpg" alt="Slide 2">
+      <img class="slide-img" src="kucingvip.gif" alt="Slide 3">
+      <img class="slide-img" src="rawwr.jpg" alt="Slide 4">
+      <img class="slide-img" src="anjing.jpg" alt="Slide 5">
+      <img class="slide-img" src="images.jpg" alt="Slide 6">
+    </div>
 
-    <!-- Tambahan: Special Offers -->
-    <section class="special-offers">
-      <h2>🎁 Penawaran Spesial</h2>
-      <div class="offers-container">
-        <div class="offer-box">
-          <img src="https://via.placeholder.com/280x150.png?text=Premium+Pet+Food" alt="Offer 1">
-          <p>Shop premium. AT A BETTER PRICE.</p>
-        </div>
-        <div class="offer-box">
-          <img src="https://via.placeholder.com/280x150.png?text=Economy+Packs" alt="Offer 2">
-          <p>BUY MORE, SAVE MORE!</p>
-        </div>
-        <div class="offer-box">
-          <img src="https://via.placeholder.com/280x150.png?text=Clearance+Sale" alt="Offer 3">
-          <p>REDUCED PRICES!</p>
-        </div>
-      </div>
-    </section>
+    <div class="dot-container" id="dotContainer"></div>
 
+    <h2 id="greeting">Hai, pengguna!</h2>
+    <p>Kami siap membantu semua kebutuhan hewan peliharaan Anda dengan penuh cinta!</p>
+
+    <div class="menu">
+      <button onclick="menuClick('produk.html')">🛍️ Produk</button>
+      <button onclick="menuClick('layanann.html')">💼 Layanan</button>
+      <button onclick="menuClick('riwayat.html')">📝 Riwayat</button>
+      <button onclick="menuClick('informasi.html')">📢 Informasi</button>
+      <button onclick="menuClick('cabang.html')">🏪 Cabang</button>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">🚪 Keluar</button>
   </main>
 
-  <!-- Footer tetap -->
+  <footer>
+    &copy; 2025 PetShop Ceria.
+  </footer>
+
+  <audio id="meowSound" src="https://www.fesliyanstudios.com/play-mp3/4383" preload="auto"></audio>
+
+  <script>
+    const loginData = localStorage.getItem("loginAktif");
+    const slides = document.getElementsByClassName("slide-img");
+    const dotContainer = document.getElementById("dotContainer");
+    let dots = [];
+    let slideIndex = 0;
+
+    if (!loginData) {
+      window.location.href = "index.html";
+    } else {
+      try {
+        const user = JSON.parse(loginData);
+        document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
+        document.getElementById("profileButton").style.display = "block";
+      } catch (e) {
+        localStorage.removeItem("loginAktif");
+        window.location.href = "index.html";
+      }
+    }
+
+    function logout() {
+      if (confirm("Apakah Anda yakin ingin keluar dari akun?")) {
+        localStorage.removeItem("loginAktif");
+        window.location.href = "index.html";
+      }
+    }
+
+    function menuClick(page) {
+      document.getElementById("meowSound").play();
+      setTimeout(() => window.location.href = page, 300);
+    }
+
+    function goToProfile() {
+      document.getElementById("meowSound").play();
+      setTimeout(() => window.location.href = "profil.html", 300);
+    }
+
+    function createDots() {
+      for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("dot");
+        dot.onclick = () => setSlide(i);
+        dotContainer.appendChild(dot);
+        dots.push(dot);
+      }
+    }
+
+    function showSlides() {
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        dots[i].classList.remove("active");
+      }
+
+      slides[slideIndex].style.display = "block";
+      dots[slideIndex].classList.add("active");
+
+      slideIndex = (slideIndex + 1) % slides.length;
+      setTimeout(showSlides, 5000);
+    }
+
+    function setSlide(n) {
+      slideIndex = n;
+      showSlides();
+    }
+
+    createDots();
+    showSlides();
+  </script>
 </body>
 </html>
