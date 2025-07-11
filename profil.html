@@ -27,8 +27,6 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       padding: 2rem;
       text-align: center;
-      position: relative;
-      overflow: hidden;
     }
 
     .profile-header img {
@@ -72,7 +70,7 @@
     }
 
     .btn-group {
-      margin-top: 2.5rem;
+      margin-top: 2rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -89,40 +87,40 @@
       font-weight: bold;
       border: none;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
+      transition: background 0.3s ease;
     }
 
     .btn-group a:hover,
     .btn-group button:hover {
       background: #ff64a5;
-      transform: scale(1.03);
     }
 
-    .pet-animation {
-      position: absolute;
-      width: 60px;
-      bottom: 20px;
-      opacity: 0.2;
+    .form-edit {
+      display: none;
+      margin-top: 1.5rem;
+      text-align: left;
     }
 
-    .pet-left {
-      left: -30px;
-      animation: floatLeft 4s infinite alternate ease-in-out;
+    .form-edit input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
     }
 
-    .pet-right {
-      right: -30px;
-      animation: floatRight 4s infinite alternate ease-in-out;
+    .form-edit button {
+      background: #ff90bb;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      color: white;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    @keyframes floatLeft {
-      0% { transform: translateY(0) rotate(-10deg); }
-      100% { transform: translateY(-10px) rotate(0deg); }
-    }
-
-    @keyframes floatRight {
-      0% { transform: translateY(0) rotate(10deg); }
-      100% { transform: translateY(-10px) rotate(0deg); }
+    .form-edit button:hover {
+      background: #ff64a5;
     }
 
     @media (max-width: 480px) {
@@ -170,31 +168,71 @@
     </div>
 
     <div class="btn-group">
+      <button onclick="toggleEdit()">✏️ Edit Profil</button>
+      <button onclick="ubahPassword()">🔑 Ubah Password</button>
       <a href="beranda.html">⬅️ Kembali ke Beranda</a>
       <button onclick="logout()">🚪 Keluar</button>
     </div>
 
-    <!-- Animasi hewan hias -->
-    <img src="https://i.ibb.co/fF3p47n/dog-walk.gif" class="pet-animation pet-left" alt="dog" />
-    <img src="https://i.ibb.co/hXKw99p/cat-sit.gif" class="pet-animation pet-right" alt="cat" />
+    <div class="form-edit" id="formEdit">
+      <h3>Edit Data Profil</h3>
+      <input type="text" id="editNama" placeholder="Nama" />
+      <input type="email" id="editEmail" placeholder="Email" />
+      <input type="text" id="editTelepon" placeholder="Telepon" />
+      <input type="text" id="editAlamat" placeholder="Alamat" />
+      <button onclick="simpanEdit()">💾 Simpan</button>
+    </div>
   </div>
 
   <script>
     const dataLogin = localStorage.getItem("loginAktif");
+    let pengguna;
+
     if (!dataLogin) {
       alert("Silakan login terlebih dahulu.");
       window.location.href = "index.html";
     } else {
-      try {
-        const pengguna = JSON.parse(dataLogin);
-        document.getElementById("namaPengguna").innerText = pengguna.nama || "Nama tidak tersedia";
-        document.getElementById("emailPengguna").innerText = pengguna.email || "Belum diisi";
-        document.getElementById("teleponPengguna").innerText = pengguna.telepon || "Belum diisi";
-        document.getElementById("alamatPengguna").innerText = pengguna.alamat || "Belum diisi";
-      } catch (e) {
-        alert("Data tidak valid. Silakan login ulang.");
-        localStorage.removeItem("loginAktif");
-        window.location.href = "index.html";
+      pengguna = JSON.parse(dataLogin);
+      document.getElementById("namaPengguna").innerText = pengguna.nama || "Nama tidak tersedia";
+      document.getElementById("emailPengguna").innerText = pengguna.email || "Belum diisi";
+      document.getElementById("teleponPengguna").innerText = pengguna.telepon || "Belum diisi";
+      document.getElementById("alamatPengguna").innerText = pengguna.alamat || "Belum diisi";
+    }
+
+    function toggleEdit() {
+      const form = document.getElementById("formEdit");
+      if (form.style.display === "block") {
+        form.style.display = "none";
+      } else {
+        document.getElementById("editNama").value = pengguna.nama || "";
+        document.getElementById("editEmail").value = pengguna.email || "";
+        document.getElementById("editTelepon").value = pengguna.telepon || "";
+        document.getElementById("editAlamat").value = pengguna.alamat || "";
+        form.style.display = "block";
+      }
+    }
+
+    function simpanEdit() {
+      pengguna.nama = document.getElementById("editNama").value;
+      pengguna.email = document.getElementById("editEmail").value;
+      pengguna.telepon = document.getElementById("editTelepon").value;
+      pengguna.alamat = document.getElementById("editAlamat").value;
+
+      localStorage.setItem("loginAktif", JSON.stringify(pengguna));
+      alert("Profil berhasil diperbarui!");
+      location.reload();
+    }
+
+    function ubahPassword() {
+      const lama = prompt("Masukkan password lama:");
+      const baru = prompt("Masukkan password baru:");
+
+      if (!pengguna.password || pengguna.password === lama) {
+        pengguna.password = baru;
+        localStorage.setItem("loginAktif", JSON.stringify(pengguna));
+        alert("Password berhasil diubah!");
+      } else {
+        alert("Password lama salah!");
       }
     }
 
@@ -206,6 +244,5 @@
       }
     }
   </script>
-
 </body>
 </html>
