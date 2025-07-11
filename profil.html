@@ -27,6 +27,8 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       padding: 2rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
     .profile-header img {
@@ -77,7 +79,8 @@
       align-items: center;
     }
 
-    .btn-group a, .btn-group button {
+    .btn-group a,
+    .btn-group button {
       background: #ff90bb;
       color: white;
       padding: 0.8rem 2rem;
@@ -86,12 +89,40 @@
       font-weight: bold;
       border: none;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
     .btn-group a:hover,
     .btn-group button:hover {
       background: #ff64a5;
+      transform: scale(1.03);
+    }
+
+    .pet-animation {
+      position: absolute;
+      width: 60px;
+      bottom: 20px;
+      opacity: 0.2;
+    }
+
+    .pet-left {
+      left: -30px;
+      animation: floatLeft 4s infinite alternate ease-in-out;
+    }
+
+    .pet-right {
+      right: -30px;
+      animation: floatRight 4s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatLeft {
+      0% { transform: translateY(0) rotate(-10deg); }
+      100% { transform: translateY(-10px) rotate(0deg); }
+    }
+
+    @keyframes floatRight {
+      0% { transform: translateY(0) rotate(10deg); }
+      100% { transform: translateY(-10px) rotate(0deg); }
     }
 
     @media (max-width: 480px) {
@@ -142,6 +173,10 @@
       <a href="beranda.html">⬅️ Kembali ke Beranda</a>
       <button onclick="logout()">🚪 Keluar</button>
     </div>
+
+    <!-- Animasi hewan hias -->
+    <img src="https://i.ibb.co/fF3p47n/dog-walk.gif" class="pet-animation pet-left" alt="dog" />
+    <img src="https://i.ibb.co/hXKw99p/cat-sit.gif" class="pet-animation pet-right" alt="cat" />
   </div>
 
   <script>
@@ -150,11 +185,17 @@
       alert("Silakan login terlebih dahulu.");
       window.location.href = "index.html";
     } else {
-      const pengguna = JSON.parse(dataLogin);
-      document.getElementById("namaPengguna").innerText = pengguna.nama || "Nama tidak tersedia";
-      document.getElementById("emailPengguna").innerText = pengguna.email || "Belum diisi";
-      document.getElementById("teleponPengguna").innerText = pengguna.telepon || "Belum diisi";
-      document.getElementById("alamatPengguna").innerText = pengguna.alamat || "Belum diisi";
+      try {
+        const pengguna = JSON.parse(dataLogin);
+        document.getElementById("namaPengguna").innerText = pengguna.nama || "Nama tidak tersedia";
+        document.getElementById("emailPengguna").innerText = pengguna.email || "Belum diisi";
+        document.getElementById("teleponPengguna").innerText = pengguna.telepon || "Belum diisi";
+        document.getElementById("alamatPengguna").innerText = pengguna.alamat || "Belum diisi";
+      } catch (e) {
+        alert("Data tidak valid. Silakan login ulang.");
+        localStorage.removeItem("loginAktif");
+        window.location.href = "index.html";
+      }
     }
 
     function logout() {
