@@ -247,13 +247,6 @@
       }
     }
 
-    function logout() {
-      if (confirm("Apakah Anda yakin ingin keluar dari akun?")) {
-        localStorage.removeItem("loginAktif");
-        window.location.href = "index.html";
-      }
-    }
-
     function menuClick(page) {
       document.getElementById("meowSound").play();
       setTimeout(() => window.location.href = page, 300);
