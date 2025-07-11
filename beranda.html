@@ -167,6 +167,36 @@
         width: 100%;
       }
     }
+
+    /* 🐶 Anjing kiri dan 🐱 kucing kanan animasi */
+    .dog-animation {
+      position: fixed;
+      bottom: 0;
+      left: 20px;
+      width: 100px;
+      z-index: 999;
+      animation: jump 2s infinite ease-in-out;
+    }
+
+    .cat-animation {
+      position: fixed;
+      bottom: 0;
+      right: 20px;
+      width: 100px;
+      z-index: 999;
+      animation: swing 3s infinite ease-in-out;
+    }
+
+    @keyframes jump {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes swing {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(3deg); }
+      75% { transform: rotate(-3deg); }
+    }
   </style>
 </head>
 <body>
@@ -203,6 +233,12 @@
       <button onclick="menuClick('cabang.html')">🏪 Cabang</button>
     </div>
   </main>
+
+  <!-- 🐶 Anjing Animasi -->
+  <img src="https://i.ibb.co/fF3p47n/dog-walk.gif" alt="Anjing" class="dog-animation" />
+
+  <!-- 🐱 Kucing Animasi -->
+  <img src="https://i.ibb.co/hXKw99p/cat-sit.gif" alt="Kucing" class="cat-animation" />
 
   <footer>
     &copy; 2025 PetShop Ceria.
