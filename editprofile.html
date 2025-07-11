@@ -30,8 +30,8 @@
     }
 
     .profile-header img {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       border: 4px solid #ff90bb;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -123,6 +123,10 @@
       background: #ff64a5;
     }
 
+    .form-edit input[type="file"] {
+      padding: 0.3rem;
+    }
+
     @media (max-width: 480px) {
       .profile-container {
         padding: 1.5rem;
@@ -148,7 +152,7 @@
 
   <div class="profile-container">
     <div class="profile-header">
-      <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil" />
+      <img id="fotoProfil" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil" />
       <h2 id="namaPengguna">Nama Pengguna</h2>
     </div>
 
@@ -169,18 +173,18 @@
 
     <div class="btn-group">
       <button onclick="toggleEdit()">✏️ Edit Profil</button>
-      <button onclick="ubahPassword()">🔑 Ubah Password</button>
       <a href="beranda.html">⬅️ Kembali ke Beranda</a>
       <button onclick="logout()">🚪 Keluar</button>
     </div>
 
     <div class="form-edit" id="formEdit">
-      <h3>Edit Data Profil</h3>
-      <input type="text" id="editNama" placeholder="Nama" />
+      <h3>Edit Profil</h3>
+      <input type="text" id="editNama" placeholder="Nama Lengkap" />
       <input type="email" id="editEmail" placeholder="Email" />
       <input type="text" id="editTelepon" placeholder="Telepon" />
       <input type="text" id="editAlamat" placeholder="Alamat" />
-      <button onclick="simpanEdit()">💾 Simpan</button>
+      <input type="file" id="editFoto" accept="image/*" />
+      <button onclick="simpanEdit()">💾 Simpan Perubahan</button>
     </div>
   </div>
 
@@ -193,10 +197,15 @@
       window.location.href = "index.html";
     } else {
       pengguna = JSON.parse(dataLogin);
+      tampilkanProfil();
+    }
+
+    function tampilkanProfil() {
       document.getElementById("namaPengguna").innerText = pengguna.nama || "Nama tidak tersedia";
       document.getElementById("emailPengguna").innerText = pengguna.email || "Belum diisi";
       document.getElementById("teleponPengguna").innerText = pengguna.telepon || "Belum diisi";
       document.getElementById("alamatPengguna").innerText = pengguna.alamat || "Belum diisi";
+      document.getElementById("fotoProfil").src = pengguna.foto || "https://cdn-icons-png.flaticon.com/512/847/847969.png";
     }
 
     function toggleEdit() {
@@ -218,22 +227,23 @@
       pengguna.telepon = document.getElementById("editTelepon").value;
       pengguna.alamat = document.getElementById("editAlamat").value;
 
+      const file = document.getElementById("editFoto").files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          pengguna.foto = reader.result;
+          simpanKeStorage();
+        };
+        reader.readAsDataURL(file);
+      } else {
+        simpanKeStorage();
+      }
+    }
+
+    function simpanKeStorage() {
       localStorage.setItem("loginAktif", JSON.stringify(pengguna));
       alert("Profil berhasil diperbarui!");
       location.reload();
-    }
-
-    function ubahPassword() {
-      const lama = prompt("Masukkan password lama:");
-      const baru = prompt("Masukkan password baru:");
-
-      if (!pengguna.password || pengguna.password === lama) {
-        pengguna.password = baru;
-        localStorage.setItem("loginAktif", JSON.stringify(pengguna));
-        alert("Password berhasil diubah!");
-      } else {
-        alert("Password lama salah!");
-      }
     }
 
     function logout() {
@@ -244,5 +254,6 @@
       }
     }
   </script>
+
 </body>
 </html>
