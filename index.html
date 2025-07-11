@@ -3,135 +3,345 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Akun PetShop Ceria</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <title>Beranda - PetShop Ceria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Quicksand', sans-serif;
       margin: 0;
-      background-color: #ffeef2;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #fff0f5, #ffe0f0);
+      background-image: url("https://emoji.gg/assets/emoji/2371-pawprints.gif");
+      background-size: 50px;
+      background-repeat: repeat;
+      animation: bgScroll 60s linear infinite;
+    }
+
+    @keyframes bgScroll {
+      from { background-position: 0 0; }
+      to { background-position: 1000px 1000px; }
+    }
+
+    header {
+      background-color: #ff90bb;
       padding: 2rem;
       text-align: center;
-    }
-
-    h1 {
-      color: #d63384;
-    }
-
-    .form-container, .akun-container {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      max-width: 400px;
-      margin: 2rem auto;
-    }
-
-    input {
-      padding: 10px;
-      width: 100%;
-      margin: 0.5rem 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      background-color: #ff80ab;
-      border: none;
-      padding: 12px;
-      width: 100%;
-      border-radius: 8px;
       color: white;
+      border-bottom: 5px solid #ff64a5;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-family: 'Fredoka One', cursive;
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    #profileButton {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      display: none;
+    }
+
+    #profileButton button {
+      padding: 0.6rem 1.2rem;
+      background: white;
+      color: #ff64a5;
+      border: none;
+      border-radius: 25px;
       font-weight: bold;
       cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+    }
+
+    #profileButton button:hover {
+      background: #ffe3ec;
+    }
+
+    main {
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto 2rem auto;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    .slide-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: none;
+      animation: fadeSlide 1s ease-in-out;
+      border-radius: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .slide-img:hover {
+      transform: scale(1.02);
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .dot-container {
+      text-align: center;
       margin-top: 1rem;
     }
 
-    button:hover {
-      background-color: #f06292;
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 4px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s;
+      cursor: pointer;
     }
 
-    .error {
-      color: red;
-      font-size: 0.9em;
+    .active {
+      background-color: #ff64a5;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      background: #fff0f8;
+      border: 2px solid #ffb6d9;
+      border-radius: 16px;
+      width: 180px;
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      background: #ffe6f2;
+    }
+
+    .card .emoji {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card h3 {
+      margin: 0.5rem 0 0.3rem;
+      color: #ff64a5;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        width: 100%;
+      }
+    }
+
+    .dog-animation {
+      position: fixed;
+      bottom: 0;
+      left: 20px;
+      width: 100px;
+      z-index: 999;
+      animation: jump 2s infinite ease-in-out;
+    }
+
+    .cat-animation {
+      position: fixed;
+      bottom: 0;
+      right: 20px;
+      width: 100px;
+      z-index: 999;
+      animation: swing 3s infinite ease-in-out;
+    }
+
+    @keyframes jump {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes swing {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(3deg); }
+      75% { transform: rotate(-3deg); }
     }
   </style>
 </head>
 <body>
 
-  <h1>👤 Akun PetShop Ceria</h1>
+  <header>
+    <h1>🐾 PetShop Ceria</h1>
+    <p style="margin: 0; font-size: 1.1rem;">Hewan Sehat, Hati Senang 💖</p>
+    <div id="profileButton">
+      <button onclick="goToProfile()">👤 Profil</button>
+    </div>
+  </header>
 
-  <div id="form-login" class="form-container">
-    <h2>Login Akun</h2>
-    <input type="text" id="admin" placeholder="Username" required />
-    <input type="password" id="admin123" placeholder="Kata Sandi" required />
-    <button onclick="login()">Masuk</button>
-    <p id="error-message" class="error"></p>
-  </div>
+  <main>
+    <div class="slideshow-container" id="slideshow">
+      <img class="slide-img" src="kucing1.jpg" alt="Slide 1">
+      <img class="slide-img" src="Kucing.jpg" alt="Slide 2">
+      <img class="slide-img" src="kucingvip.gif" alt="Slide 3">
+      <img class="slide-img" src="rawwr.jpg" alt="Slide 4">
+      <img class="slide-img" src="anjing.jpg" alt="Slide 5">
+      <img class="slide-img" src="images.jpg" alt="Slide 6">
+    </div>
 
-  <div id="akun-data" class="akun-container" style="display: none;">
-    <h2>Selamat Datang, <span id="akun-nama"></span>!</h2>
-    <p>Email: <span id="akun-email"></span></p>
-    <br><br>
-    <button onclick="masukMenu()">Masuk ke Menu</button>
-  </div>
+    <div class="dot-container" id="dotContainer"></div>
 
-  <!-- Loading container -->
-  <div id="loading" class="akun-container" style="display: none;">
-    <h2>Memuat...</h2>
-    <p>Silakan tunggu sebentar</p>
-  </div>
+    <h2 id="greeting">Hai, pengguna!</h2>
+    <p>Kami siap membantu semua kebutuhan hewan peliharaan Anda dengan penuh cinta!</p>
+
+    <!-- Menu dalam bentuk card -->
+    <div class="menu">
+      <div class="card" onclick="menuClick('produk.html')">
+        <div class="emoji">🛍️</div>
+        <h3>Produk</h3>
+        <p>Perlengkapan & makanan hewan</p>
+      </div>
+      <div class="card" onclick="menuClick('layanann.html')">
+        <div class="emoji">💼</div>
+        <h3>Layanan</h3>
+        <p>Grooming & perawatan profesional</p>
+      </div>
+      <div class="card" onclick="menuClick('riwayat.html')">
+        <div class="emoji">📝</div>
+        <h3>Riwayat</h3>
+        <p>Catatan transaksi & booking</p>
+      </div>
+      <div class="card" onclick="menuClick('informasi.html')">
+        <div class="emoji">📢</div>
+        <h3>Informasi</h3>
+        <p>Tips merawat hewan peliharaan</p>
+      </div>
+      <div class="card" onclick="menuClick('cabang.html')">
+        <div class="emoji">🏪</div>
+        <h3>Cabang</h3>
+        <p>Temukan toko PetShop Ceria terdekat</p>
+      </div>
+    </div>
+  </main>
+
+  <img src="https://i.ibb.co/fF3p47n/dog-walk.gif" alt="Anjing" class="dog-animation" />
+  <img src="https://i.ibb.co/hXKw99p/cat-sit.gif" alt="Kucing" class="cat-animation" />
+
+  <footer>
+    &copy; 2025 PetShop Ceria.
+  </footer>
+
+  <audio id="meowSound" src="https://www.fesliyanstudios.com/play-mp3/4383" preload="auto"></audio>
 
   <script>
-    // Simulasi data akun yang disiapkan
-    const akunTersedia = {
-      username: "admin",
-      password: "admin123",
-      nama: "admin",
-      email: "adminpetshop@email.com"
-    };
+    const loginData = localStorage.getItem("loginAktif");
+    let slides, dots = [], slideIndex = 0;
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const loginData = localStorage.getItem("loginAktif");
-      if (loginData) {
-        const data = JSON.parse(loginData);
-        tampilkanAkun(data.nama, data.email);
+    function initializeSlideshow() {
+      slides = document.getElementsByClassName("slide-img");
+      const dotContainer = document.getElementById("dotContainer");
+
+      for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("dot");
+        dot.onclick = () => setSlide(i);
+        dotContainer.appendChild(dot);
+        dots.push(dot);
       }
-    });
 
-    function login() {
-      const inputUser = document.getElementById("admin").value;
-      const inputPass = document.getElementById("admin123").value;
-      const errorMsg = document.getElementById("error-message");
+      showSlides();
+    }
 
-      if (inputUser === akunTersedia.username && inputPass === akunTersedia.password) {
-        localStorage.setItem("loginAktif", JSON.stringify({
-          nama: akunTersedia.nama,
-          email: akunTersedia.email
-        }));
+    function showSlides() {
+      if (!slides || slides.length === 0 || !dots || dots.length === 0) return;
 
-        document.getElementById("form-login").style.display = "none";
-        errorMsg.innerText = "";
-        document.getElementById("loading").style.display = "block";
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        if (dots[i]) dots[i].classList.remove("active");
+      }
 
-        setTimeout(() => {
-          window.location.href = "beranda.html";
-        }, 1500);
+      slides[slideIndex].style.display = "block";
+      if (dots[slideIndex]) dots[slideIndex].classList.add("active");
+
+      slideIndex = (slideIndex + 1) % slides.length;
+      setTimeout(showSlides, 5000);
+    }
+
+    function setSlide(n) {
+      slideIndex = n;
+      showSlides();
+    }
+
+    function menuClick(page) {
+      document.getElementById("meowSound").play();
+      setTimeout(() => window.location.href = page, 300);
+    }
+
+    function goToProfile() {
+      document.getElementById("meowSound").play();
+      setTimeout(() => window.location.href = "profil.html", 300);
+    }
+
+    window.onload = function () {
+      if (!loginData) {
+        window.location.href = "index.html";
       } else {
-        errorMsg.innerText = "Username atau kata sandi salah!";
+        try {
+          const user = JSON.parse(loginData);
+          document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
+          document.getElementById("profileButton").style.display = "block";
+        } catch (e) {
+          localStorage.removeItem("loginAktif");
+          window.location.href = "index.html";
+        }
       }
-    }
 
-    function tampilkanAkun(nama, email) {
-      document.getElementById("form-login").style.display = "none";
-      document.getElementById("akun-data").style.display = "block";
-      document.getElementById("akun-nama").innerText = nama;
-      document.getElementById("akun-email").innerText = email;
-    }
-
-    function masukMenu() {
-      window.location.href = "beranda.html";
-    }
+      initializeSlideshow();
+    };
   </script>
 </body>
 </html>
