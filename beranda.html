@@ -164,6 +164,12 @@
       transition: all 0.3s ease;
       box-shadow: 0 8px 18px rgba(255,111,145,0.3);
     }
+
+    .logout-btn:hover {
+      background: #ff507a;
+      transform: scale(1.05);
+    }
+
     footer {
       text-align: center;
       padding: 2rem;
@@ -174,6 +180,10 @@
     @media (max-width: 480px) {
       .menu {
         flex-direction: column;
+      }
+
+      .menu button, .logout-btn {
+        width: 100%;
       }
     }
   </style>
@@ -235,6 +245,7 @@
         localStorage.removeItem("loginAktif");
         window.location.href = "index.html";
       }
+    }
 
     function menuClick(page) {
       document.getElementById("meowSound").play();
