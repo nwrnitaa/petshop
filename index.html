@@ -51,14 +51,6 @@
       background-color: #f06292;
     }
 
-    .logout-btn {
-      background-color: #ff5252;
-    }
-
-    .logout-btn:hover {
-      background-color: #e53935;
-    }
-
     .error {
       color: red;
       font-size: 0.9em;
@@ -118,15 +110,14 @@
           email: akunTersedia.email
         }));
 
-      // Tampilkan loading dan alihkan setelah 2 detik
         document.getElementById("form-login").style.display = "none";
         errorMsg.innerText = "";
         document.getElementById("loading").style.display = "block";
-      // Redirect setelah 1.5 detik
+
         setTimeout(() => {
-        window.location.href = "beranda.html";
-        }, 1500); // 1500 milidetik = 1.5 detik
-        } else {
+          window.location.href = "beranda.html";
+        }, 1500);
+      } else {
         errorMsg.innerText = "Username atau kata sandi salah!";
       }
     }
@@ -140,11 +131,6 @@
 
     function masukMenu() {
       window.location.href = "beranda.html";
-    }
-
-    function logout() {
-      localStorage.removeItem("loginAktif");
-      location.reload();
     }
   </script>
 </body>
