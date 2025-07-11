@@ -29,6 +29,10 @@
       text-align: center;
     }
 
+    .profile-header {
+      position: relative;
+    }
+
     .profile-header img {
       width: 100px;
       height: 100px;
@@ -36,6 +40,19 @@
       border: 4px solid #ff90bb;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .profile-header img:hover {
+      transform: scale(1.05);
+    }
+
+    .profile-header small {
+      display: block;
+      margin-top: 5px;
+      font-size: 0.8rem;
+      color: #888;
     }
 
     .profile-header h2 {
@@ -123,6 +140,10 @@
       background: #ff64a5;
     }
 
+    #inputFoto {
+      display: none;
+    }
+
     @media (max-width: 480px) {
       .profile-container {
         padding: 1.5rem;
@@ -148,7 +169,8 @@
 
   <div class="profile-container">
     <div class="profile-header">
-      <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil" />
+      <img id="fotoProfil" src="" alt="Foto Profil" onclick="ubahFoto()" />
+      <small>Klik foto untuk mengubah</small>
       <h2 id="namaPengguna">Nama Pengguna</h2>
     </div>
 
@@ -182,6 +204,8 @@
       <input type="text" id="editAlamat" placeholder="Alamat" />
       <button onclick="simpanEdit()">💾 Simpan</button>
     </div>
+
+    <input type="file" id="inputFoto" accept="image/*" onchange="unggahFoto()" />
   </div>
 
   <script>
@@ -193,10 +217,15 @@
       window.location.href = "index.html";
     } else {
       pengguna = JSON.parse(dataLogin);
+      tampilkanProfil();
+    }
+
+    function tampilkanProfil() {
       document.getElementById("namaPengguna").innerText = pengguna.nama || "Nama tidak tersedia";
       document.getElementById("emailPengguna").innerText = pengguna.email || "Belum diisi";
       document.getElementById("teleponPengguna").innerText = pengguna.telepon || "Belum diisi";
       document.getElementById("alamatPengguna").innerText = pengguna.alamat || "Belum diisi";
+      document.getElementById("fotoProfil").src = pengguna.foto || "https://cdn-icons-png.flaticon.com/512/847/847969.png";
     }
 
     function toggleEdit() {
@@ -217,7 +246,6 @@
       pengguna.email = document.getElementById("editEmail").value;
       pengguna.telepon = document.getElementById("editTelepon").value;
       pengguna.alamat = document.getElementById("editAlamat").value;
-
       localStorage.setItem("loginAktif", JSON.stringify(pengguna));
       alert("Profil berhasil diperbarui!");
       location.reload();
@@ -226,7 +254,6 @@
     function ubahPassword() {
       const lama = prompt("Masukkan password lama:");
       const baru = prompt("Masukkan password baru:");
-
       if (!pengguna.password || pengguna.password === lama) {
         pengguna.password = baru;
         localStorage.setItem("loginAktif", JSON.stringify(pengguna));
@@ -243,6 +270,24 @@
         window.location.href = "index.html";
       }
     }
+
+    function ubahFoto() {
+      document.getElementById("inputFoto").click();
+    }
+
+    function unggahFoto() {
+      const file = document.getElementById("inputFoto").files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          pengguna.foto = reader.result;
+          localStorage.setItem("loginAktif", JSON.stringify(pengguna));
+          document.getElementById("fotoProfil").src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
   </script>
+
 </body>
 </html>
