@@ -221,10 +221,6 @@
       <button onclick="menuClick('informasi.html')">📢 Informasi</button>
       <button onclick="menuClick('cabang.html')">🏪 Cabang</button>
     </div>
-
-    <button class="logout-btn" onclick="logout()">🚪 Keluar</button>
-  </main>
-
   <footer>
     &copy; 2025 PetShop Ceria.
   </footer>
@@ -249,14 +245,6 @@
         localStorage.removeItem("loginAktif");
         window.location.href = "index.html";
       }
-    }
-
-    function logout() {
-      if (confirm("Apakah Anda yakin ingin keluar dari akun?")) {
-        localStorage.removeItem("loginAktif");
-        window.location.href = "index.html";
-      }
-    }
 
     function menuClick(page) {
       document.getElementById("meowSound").play();
