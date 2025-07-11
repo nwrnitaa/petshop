@@ -24,25 +24,29 @@
       font-size: 1.1rem;
     }
 
+    #filter-menu {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 0;
+      list-style: none;
+    }
+
     #filter-menu span {
-      margin: 0 0.7rem;
       color: #d63384;
       cursor: pointer;
       font-weight: bold;
       text-decoration: underline;
+      white-space: nowrap;
     }
 
     #filter-menu span:hover {
       color: #f06292;
     }
 
-    .produk-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
+  
 
     .card {
       background-color: white;
@@ -163,15 +167,14 @@
   <h1>🛍️ Produk PetShop Ceria</h1>
 
   <!-- Menu Filter sebagai teks -->
-  <nav id="filter-menu">
-    <span onclick="filterKategori('semua')">Semua</span> |
-    <span onclick="filterKategori('makanan')">Makanan Hewan</span> |
-    <span onclick="filterKategori('aksesori')">Aksesori Hewan</span> |
-    <span onclick="filterKategori('mainan')">Mainan Hewan</span> |
-    <span onclick="filterKategori('rumah')">Rumah Hewan</span> |
-    <span onclick="filterKategori('perawatan')">Perawatan Hewan</span>
+    <nav id="filter-menu">
+        <span onclick="filterKategori('semua')">Semua</span>
+        <span onclick="filterKategori('makanan')">Makanan Hewan</span>
+        <span onclick="filterKategori('aksesori')">Aksesori Hewan</span>
+        <span onclick="filterKategori('mainan')">Mainan Hewan</span>
+        <span onclick="filterKategori('rumah')">Rumah Hewan</span>
+        <span onclick="filterKategori('perawatan')">Perawatan Hewan</span>
   </nav>
-
   <div class="cart-icon" onclick="toggleCart()">🛒 Keranjang (<span id="cart-count">0</span>)</div>
 
   <div class="produk-container">
@@ -246,6 +249,15 @@
         <button class="btn" onclick="addToCart('Tas Kucing', 75000)">Beli</button>
       </div>
     </div>
+    
+        <div class="card" data-kategori="rumah">
+      <img src="tas_cat.jpg" alt="Tas Kucing">
+      <div class="card-content">
+        <div class="card-title">Tas Kucing</div>
+        <div class="card-price">Rp 75.000</div>
+        <button class="btn" onclick="addToCart('Tas Kucing', 75000)">Beli</button>
+      </div>
+    </div>
 
     <div class="card" data-kategori="perawatan">
       <img src="sampo kucing.jpg" alt="Sampo Hewan">
@@ -262,6 +274,43 @@
         <div class="card-title">Blower Kucing</div>
         <div class="card-price">Rp 85.000</div>
         <button class="btn" onclick="addToCart('Blower Kucing', 85000)">Beli</button>
+      </div>
+    </div>
+  </div>
+
+      <div class="card" data-kategori="mainan">
+      <img src="bola_anjing.jpg" alt="Bola Mainan Anjing">
+      <div class="card-content">
+        <div class="card-title">Bola Mainan Anjing</div>
+        <div class="card-price">Rp 20.000</div>
+        <button class="btn" onclick="addToCart('Bola Mainan Anjing', 20000)">Beli</button>
+      </div>
+    </div>
+
+    <div class="card" data-kategori="makanan">
+      <img src="snack_kucing.jpg" alt="Snack Kucing Tuna">
+      <div class="card-content">
+        <div class="card-title">Snack Kucing Tuna</div>
+        <div class="card-price">Rp 15.000</div>
+        <button class="btn" onclick="addToCart('Snack Kucing Tuna', 15000)">Beli</button>
+      </div>
+    </div>
+
+    <div class="card" data-kategori="perawatan">
+      <img src="sisir_kucing.jpg" alt="Sisir Grooming Kucing">
+      <div class="card-content">
+        <div class="card-title">Sisir Grooming Kucing</div>
+        <div class="card-price">Rp 18.000</div>
+        <button class="btn" onclick="addToCart('Sisir Grooming Kucing', 18000)">Beli</button>
+      </div>
+    </div>
+
+    <div class="card" data-kategori="aksesori">
+      <img src="bandana_kucing.jpg" alt="Bandana Lucu untuk Kucing">
+      <div class="card-content">
+        <div class="card-title">Bandana Lucu untuk Kucing</div>
+        <div class="card-price">Rp 10.000</div>
+        <button class="btn" onclick="addToCart('Bandana Lucu untuk Kucing', 10000)">Beli</button>
       </div>
     </div>
   </div>
