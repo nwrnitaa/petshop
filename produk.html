@@ -11,15 +11,16 @@
       margin: 0;
       background-color: #fff8fb;
       padding: 2rem;
-      text-align: center;
     }
 
     h1 {
       color: #d63384;
+      text-align: center;
       margin-bottom: 1rem;
     }
 
     nav {
+      text-align: center;
       margin-bottom: 2rem;
       font-size: 1.1rem;
     }
@@ -36,30 +37,23 @@
       color: #f06292;
     }
 
-    .produk-container {
+    .horizontal-scroll {
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .produk-row {
-      display: flex;
-      gap: 1rem;
       overflow-x: auto;
       padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
     }
 
-    .produk-row::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .produk-row::-webkit-scrollbar-thumb {
-      background-color: #d63384;
-      border-radius: 10px;
+    .produk-kolom {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-rows: repeat(3, auto); /* 3 baris ke bawah */
+      gap: 1.5rem;
+      margin-right: 1.5rem;
+      scroll-snap-align: start;
     }
 
     .card {
-      flex: 0 0 auto;
       width: 220px;
       background-color: white;
       border-radius: 12px;
@@ -80,6 +74,7 @@
 
     .card-content {
       padding: 1rem;
+      text-align: center;
     }
 
     .card-title {
@@ -107,8 +102,9 @@
     }
 
     .back-link {
-      display: inline-block;
-      margin-top: 2rem;
+      display: block;
+      margin: 2rem auto;
+      text-align: center;
       text-decoration: none;
       color: #d63384;
       font-weight: bold;
@@ -180,97 +176,18 @@
 
 <nav id="filter-menu">
   <span onclick="filterKategori('semua')">Semua</span> |
-  <span onclick="filterKategori('makanan')">Makanan</span> |
-  <span onclick="filterKategori('mainan')">Mainan</span> |
-  <span onclick="filterKategori('aksesori')">Aksesori</span> |
-  <span onclick="filterKategori('rumah')">Rumah</span> |
-  <span onclick="filterKategori('perawatan')">Perawatan</span>
+  <span onclick="filterKategori('makanan')">Makanan Hewan</span> |
+  <span onclick="filterKategori('aksesori')">Aksesori Hewan</span> |
+  <span onclick="filterKategori('mainan')">Mainan Hewan</span> |
+  <span onclick="filterKategori('rumah')">Rumah Hewan</span> |
+  <span onclick="filterKategori('perawatan')">Perawatan Hewan</span>
 </nav>
 
 <div class="cart-icon" onclick="toggleCart()">🛒 Keranjang (<span id="cart-count">0</span>)</div>
 
-<!-- Produk dalam 3 baris -->
-<div class="produk-container">
-  <div class="produk-row">
-    <div class="card" data-kategori="makanan">
-      <img src="fooddog_premium.jpg" alt="Dog Food">
-      <div class="card-content">
-        <div class="card-title">Makanan Anjing Premium</div>
-        <div class="card-price">Rp 45.000</div>
-        <button class="btn" onclick="addToCart('Makanan Anjing Premium', 45000)">Beli</button>
-      </div>
-    </div>
-    <div class="card" data-kategori="mainan">
-      <img src="mainan_kucing.jpg" alt="Mainan Kucing">
-      <div class="card-content">
-        <div class="card-title">Mainan Kucing Interaktif</div>
-        <div class="card-price">Rp 45.000</div>
-        <button class="btn" onclick="addToCart('Mainan Kucing Interaktif', 45000)">Beli</button>
-      </div>
-    </div>
-    <div class="card" data-kategori="aksesori">
-      <img src="kalung_kucing.jpg" alt="Kalung Kucing">
-      <div class="card-content">
-        <div class="card-title">Kalung Kucing</div>
-        <div class="card-price">Rp 5.000</div>
-        <button class="btn" onclick="addToCart('Kalung Kucing', 5000)">Beli</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="produk-row">
-    <div class="card" data-kategori="rumah">
-      <img src="sleep_cat.jpg" alt="Tempat Tidur">
-      <div class="card-content">
-        <div class="card-title">Tempat Tidur Kucing</div>
-        <div class="card-price">Rp 80.000</div>
-        <button class="btn" onclick="addToCart('Tempat Tidur Kucing', 80000)">Beli</button>
-      </div>
-    </div>
-    <div class="card" data-kategori="makanan">
-      <img src="whiskas.jpg" alt="Whiskas">
-      <div class="card-content">
-        <div class="card-title">Whiskas Basah Kucing</div>
-        <div class="card-price">Rp 7.000</div>
-        <button class="btn" onclick="addToCart('Whiskas Basah Kucing', 7000)">Beli</button>
-      </div>
-    </div>
-    <div class="card" data-kategori="rumah">
-      <img src="tas_cat.jpg" alt="Tas Kucing">
-      <div class="card-content">
-        <div class="card-title">Tas Kucing</div>
-        <div class="card-price">Rp 75.000</div>
-        <button class="btn" onclick="addToCart('Tas Kucing', 75000)">Beli</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="produk-row">
-    <div class="card" data-kategori="perawatan">
-      <img src="sampo kucing.jpg" alt="Sampo">
-      <div class="card-content">
-        <div class="card-title">Sampo Hewan</div>
-        <div class="card-price">Rp 35.000</div>
-        <button class="btn" onclick="addToCart('Sampo Hewan', 35000)">Beli</button>
-      </div>
-    </div>
-    <div class="card" data-kategori="perawatan">
-      <img src="sisir_kucing.jpg" alt="Sisir">
-      <div class="card-content">
-        <div class="card-title">Sisir Grooming</div>
-        <div class="card-price">Rp 18.000</div>
-        <button class="btn" onclick="addToCart('Sisir Grooming', 18000)">Beli</button>
-      </div>
-    </div>
-    <div class="card" data-kategori="mainan">
-      <img src="bola_anjing.jpg" alt="Bola">
-      <div class="card-content">
-        <div class="card-title">Bola Mainan Anjing</div>
-        <div class="card-price">Rp 20.000</div>
-        <button class="btn" onclick="addToCart('Bola Mainan Anjing', 20000)">Beli</button>
-      </div>
-    </div>
-  </div>
+<!-- Container horizontal scroll -->
+<div class="horizontal-scroll" id="produkContainer">
+  <!-- Kolom akan diisi via JavaScript -->
 </div>
 
 <a href="beranda.html" class="back-link">⬅ Kembali ke Beranda</a>
@@ -288,6 +205,56 @@
 
 <script>
   let cart = [];
+
+  const produkData = [
+    { nama: 'Makanan Anjing Premium', harga: 45000, kategori: 'makanan', img: 'fooddog_premium.jpg' },
+    { nama: 'Mainan Kucing Interaktif', harga: 45000, kategori: 'mainan', img: 'mainan_kucing.jpg' },
+    { nama: 'Whiskas Basah Kucing', harga: 7000, kategori: 'makanan', img: 'whiskas.jpg' },
+    { nama: 'Tempat Tidur Kucing', harga: 80000, kategori: 'rumah', img: 'sleep_cat.jpg' },
+    { nama: 'Tempat Makan Kucing', harga: 25000, kategori: 'aksesori', img: 'tempatmakanankucing.jpg' },
+    { nama: 'Kalung Kucing', harga: 5000, kategori: 'aksesori', img: 'kalung_kucing.jpg' },
+    { nama: 'Milk Dog & Cat', harga: 35000, kategori: 'makanan', img: 'lactol_cat.jpg' },
+    { nama: 'Tas Kucing', harga: 75000, kategori: 'rumah', img: 'tas_cat.jpg' },
+    { nama: 'Sampo Hewan', harga: 35000, kategori: 'perawatan', img: 'sampo kucing.jpg' },
+    { nama: 'Blower Kucing', harga: 85000, kategori: 'perawatan', img: 'blower kucing.jpg' },
+    { nama: 'Bola Mainan Anjing', harga: 20000, kategori: 'mainan', img: 'bola_anjing.jpg' },
+    { nama: 'Snack Kucing Tuna', harga: 15000, kategori: 'makanan', img: 'snack_kucing.jpg' },
+    { nama: 'Sisir Grooming Kucing', harga: 18000, kategori: 'perawatan', img: 'sisir_kucing.jpg' },
+    { nama: 'Bandana Lucu untuk Kucing', harga: 10000, kategori: 'aksesori', img: 'bandana_kucing.jpg' }
+  ];
+
+  let produkContainer = document.getElementById("produkContainer");
+
+  function renderProduk(kategori = 'semua') {
+    produkContainer.innerHTML = "";
+    const produkFilter = kategori === 'semua' ? produkData : produkData.filter(p => p.kategori === kategori);
+    const kolomTotal = Math.ceil(produkFilter.length / 3);
+
+    for (let i = 0; i < kolomTotal; i++) {
+      const kolom = document.createElement("div");
+      kolom.className = "produk-kolom";
+
+      for (let j = 0; j < 3; j++) {
+        const index = i * 3 + j;
+        if (produkFilter[index]) {
+          const p = produkFilter[index];
+          const card = document.createElement("div");
+          card.className = "card";
+          card.setAttribute("data-kategori", p.kategori);
+          card.innerHTML = `
+            <img src="${p.img}" alt="${p.nama}">
+            <div class="card-content">
+              <div class="card-title">${p.nama}</div>
+              <div class="card-price">Rp ${p.harga.toLocaleString("id-ID")}</div>
+              <button class="btn" onclick="addToCart('${p.nama}', ${p.harga})">Beli</button>
+            </div>
+          `;
+          kolom.appendChild(card);
+        }
+      }
+      produkContainer.appendChild(kolom);
+    }
+  }
 
   function addToCart(name, price) {
     cart.push({ name, price });
@@ -324,6 +291,10 @@
     window.location.href = "pembayaran.html";
   }
 
+  function filterKategori(kategori) {
+    renderProduk(kategori);
+  }
+
   window.onclick = function(event) {
     const modal = document.getElementById("cartModal");
     if (event.target === modal) {
@@ -331,14 +302,8 @@
     }
   };
 
-  function filterKategori(kategori) {
-    const cards = document.querySelectorAll(".card");
-    cards.forEach(card => {
-      const cardKategori = card.getAttribute("data-kategori");
-      card.style.display = (kategori === "semua" || cardKategori === kategori) ? "block" : "none";
-    });
-  }
+  // Inisialisasi awal
+  renderProduk();
 </script>
-
 </body>
 </html>
