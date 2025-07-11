@@ -129,45 +129,42 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.5rem;
       margin: 2rem 0;
     }
 
-    .menu button {
-      padding: 1rem 2rem;
-      background: linear-gradient(to right, #ff64a5, #ff90bb);
-      color: white;
-      font-size: 1rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 16px;
-      cursor: pointer;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-      transition: 0.3s ease;
-    }
-
-    .menu button:hover {
-      background: linear-gradient(to right, #ff4a9d, #ff78b8);
-      transform: translateY(-3px);
-    }
-
-    .logout-btn {
-      margin-top: 2rem;
-      padding: 1rem 2.5rem;
-      background: #ff6f91;
-      border: none;
-      border-radius: 50px;
-      color: white;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
+    .menu-card {
+      width: 130px;
+      height: 140px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 18px rgba(255,111,145,0.3);
+      cursor: pointer;
+      border: 3px solid #ffdce8;
     }
 
-    .logout-btn:hover {
-      background: #ff507a;
-      transform: scale(1.05);
+    .menu-card:hover {
+      background: #ffe0f0;
+      transform: translateY(-5px) scale(1.03);
+      border-color: #ff64a5;
+    }
+
+    .menu-card img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+    }
+
+    .menu-card p {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ff64a5;
+      margin: 0;
     }
 
     footer {
@@ -179,11 +176,13 @@
 
     @media (max-width: 480px) {
       .menu {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
       }
 
-      .menu button, .logout-btn {
-        width: 100%;
+      .menu-card {
+        width: 45%;
       }
     }
   </style>
@@ -214,13 +213,32 @@
     <h2 id="greeting">Hai, pengguna!</h2>
     <p>Kami siap membantu semua kebutuhan hewan peliharaan Anda dengan penuh cinta!</p>
 
+    <!-- Menu Cards -->
     <div class="menu">
-      <button onclick="menuClick('produk.html')">🛍️ Produk</button>
-      <button onclick="menuClick('layanann.html')">💼 Layanan</button>
-      <button onclick="menuClick('riwayat.html')">📝 Riwayat</button>
-      <button onclick="menuClick('informasi.html')">📢 Informasi</button>
-      <button onclick="menuClick('cabang.html')">🏪 Cabang</button>
+      <div class="menu-card" onclick="menuClick('produk.html')">
+        <img src="https://cdn-icons-png.flaticon.com/512/3523/3523063.png" alt="Produk" />
+        <p>🛍️ Produk</p>
+      </div>
+      <div class="menu-card" onclick="menuClick('layanann.html')">
+        <img src="https://cdn-icons-png.flaticon.com/512/2965/2965567.png" alt="Layanan" />
+        <p>💼 Layanan</p>
+      </div>
+      <div class="menu-card" onclick="menuClick('riwayat.html')">
+        <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" alt="Riwayat" />
+        <p>📝 Riwayat</p>
+      </div>
+      <div class="menu-card" onclick="menuClick('informasi.html')">
+        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png" alt="Informasi" />
+        <p>📢 Informasi</p>
+      </div>
+      <div class="menu-card" onclick="menuClick('cabang.html')">
+        <img src="https://cdn-icons-png.flaticon.com/512/1308/1308743.png" alt="Cabang" />
+        <p>🏪 Cabang</p>
+      </div>
     </div>
+
+  </main>
+
   <footer>
     &copy; 2025 PetShop Ceria.
   </footer>
