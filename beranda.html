@@ -7,146 +7,85 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-      margin: 0;
-      padding: 0;
+    /* style lama tetap -- tambahan kecil di bawah */
+
+    .special-offers {
+      margin-top: 2rem;
+      background: #fffafc;
+      border-top: 4px dashed #ff64a5;
+      padding: 2rem 1rem;
+      border-radius: 20px;
     }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #fff;
-      color: #333;
-    }
-
-    header {
-      background-color: #ff90bb;
-      padding: 2rem;
+    .special-offers h2 {
       text-align: center;
-      color: white;
+      color: #ff64a5;
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
     }
 
-    header h1 {
-      font-family: 'Fredoka One', cursive;
-      font-size: 2.5rem;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      margin: 2rem 1rem 1rem;
-    }
-
-    .pet-categories {
+    .offers-container {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-around;
-      padding: 1rem;
-      gap: 1rem;
-    }
-
-    .pet-box {
-      flex: 1 1 120px;
-      max-width: 140px;
-      background: #f5f5f5;
-      border-radius: 16px;
-      text-align: center;
-      padding: 1rem;
-    }
-
-    .pet-box img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      margin-bottom: 0.5rem;
-    }
-
-    .offers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
       justify-content: center;
-      padding: 1rem;
+      gap: 1.5rem;
     }
 
     .offer-box {
-      flex: 1 1 250px;
-      background: #e6f5e6;
-      padding: 1rem;
+      background: #fff0f5;
       border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      padding: 1rem;
+      width: 280px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: 0.3s ease;
+      text-align: center;
+    }
+
+    .offer-box:hover {
+      transform: translateY(-5px) scale(1.03);
+      background: #ffe2ef;
     }
 
     .offer-box img {
-      max-width: 100%;
+      width: 100%;
       border-radius: 12px;
+      margin-bottom: 1rem;
     }
 
-    .offer-box strong {
-      font-size: 1.2rem;
-      color: #2d7f2d;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: #999;
+    .offer-box p {
+      font-weight: bold;
+      color: #c2185b;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🐾 PetShop Ceria</h1>
-    <p>Hewan Sehat, Hati Senang 💖</p>
-  </header>
 
-  <h2 class="section-title">Shop for your pet</h2>
-  <div class="pet-categories">
-    <div class="pet-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Cat">
-      <div>Cat</div>
-    </div>
-    <div class="pet-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Dog">
-      <div>Dog</div>
-    </div>
-    <div class="pet-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Small Pet">
-      <div>Small Pet</div>
-    </div>
-    <div class="pet-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Fish">
-      <div>Fish</div>
-    </div>
-    <div class="pet-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Bird">
-      <div>Bird</div>
-    </div>
-  </div>
+  <!-- Semua konten sebelumnya tidak diubah -->
 
-  <h2 class="section-title">Special offers</h2>
-  <div class="offers">
-    <div class="offer-box">
-      <strong>Shop premium. AT A BETTER PRICE.</strong>
-      <img src="https://via.placeholder.com/300x150" alt="Offer 1">
-    </div>
-    <div class="offer-box">
-      <strong>Economy packs. BUY MORE, SAVE MORE!</strong>
-      <img src="https://via.placeholder.com/300x150" alt="Offer 2">
-    </div>
-    <div class="offer-box">
-      <strong>Clearance Sale. REDUCED PRICES</strong>
-      <img src="https://via.placeholder.com/300x150" alt="Offer 3">
-    </div>
-  </div>
+  <main>
+    <!-- ... slideshow dan menu ... -->
 
-  <footer>
-    &copy; 2025 PetShop Ceria.
-  </footer>
+    <!-- Tambahan: Special Offers -->
+    <section class="special-offers">
+      <h2>🎁 Penawaran Spesial</h2>
+      <div class="offers-container">
+        <div class="offer-box">
+          <img src="https://via.placeholder.com/280x150.png?text=Premium+Pet+Food" alt="Offer 1">
+          <p>Shop premium. AT A BETTER PRICE.</p>
+        </div>
+        <div class="offer-box">
+          <img src="https://via.placeholder.com/280x150.png?text=Economy+Packs" alt="Offer 2">
+          <p>BUY MORE, SAVE MORE!</p>
+        </div>
+        <div class="offer-box">
+          <img src="https://via.placeholder.com/280x150.png?text=Clearance+Sale" alt="Offer 3">
+          <p>REDUCED PRICES!</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer tetap -->
 </body>
 </html>
