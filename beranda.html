@@ -151,25 +151,6 @@
       transform: translateY(-3px);
     }
 
-    .logout-btn {
-      margin-top: 2rem;
-      padding: 1rem 2.5rem;
-      background: #ff6f91;
-      border: none;
-      border-radius: 50px;
-      color: white;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 18px rgba(255,111,145,0.3);
-    }
-
-    .logout-btn:hover {
-      background: #ff507a;
-      transform: scale(1.05);
-    }
-
     footer {
       text-align: center;
       padding: 2rem;
@@ -182,7 +163,7 @@
         flex-direction: column;
       }
 
-      .menu button, .logout-btn {
+      .menu button {
         width: 100%;
       }
     }
@@ -221,6 +202,8 @@
       <button onclick="menuClick('informasi.html')">📢 Informasi</button>
       <button onclick="menuClick('cabang.html')">🏪 Cabang</button>
     </div>
+  </main>
+
   <footer>
     &copy; 2025 PetShop Ceria.
   </footer>
@@ -229,22 +212,41 @@
 
   <script>
     const loginData = localStorage.getItem("loginAktif");
-    const slides = document.getElementsByClassName("slide-img");
-    const dotContainer = document.getElementById("dotContainer");
-    let dots = [];
-    let slideIndex = 0;
+    let slides, dots = [], slideIndex = 0;
 
-    if (!loginData) {
-      window.location.href = "index.html";
-    } else {
-      try {
-        const user = JSON.parse(loginData);
-        document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
-        document.getElementById("profileButton").style.display = "block";
-      } catch (e) {
-        localStorage.removeItem("loginAktif");
-        window.location.href = "index.html";
+    function initializeSlideshow() {
+      slides = document.getElementsByClassName("slide-img");
+      const dotContainer = document.getElementById("dotContainer");
+
+      for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("dot");
+        dot.onclick = () => setSlide(i);
+        dotContainer.appendChild(dot);
+        dots.push(dot);
       }
+
+      showSlides();
+    }
+
+    function showSlides() {
+      if (!slides || slides.length === 0 || !dots || dots.length === 0) return;
+
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        if (dots[i]) dots[i].classList.remove("active");
+      }
+
+      slides[slideIndex].style.display = "block";
+      if (dots[slideIndex]) dots[slideIndex].classList.add("active");
+
+      slideIndex = (slideIndex + 1) % slides.length;
+      setTimeout(showSlides, 5000);
+    }
+
+    function setSlide(n) {
+      slideIndex = n;
+      showSlides();
     }
 
     function menuClick(page) {
@@ -257,36 +259,22 @@
       setTimeout(() => window.location.href = "profil.html", 300);
     }
 
-    function createDots() {
-      for (let i = 0; i < slides.length; i++) {
-        const dot = document.createElement("span");
-        dot.classList.add("dot");
-        dot.onclick = () => setSlide(i);
-        dotContainer.appendChild(dot);
-        dots.push(dot);
-      }
-    }
-
-    function showSlides() {
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-        dots[i].classList.remove("active");
+    window.onload = function () {
+      if (!loginData) {
+        window.location.href = "index.html";
+      } else {
+        try {
+          const user = JSON.parse(loginData);
+          document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
+          document.getElementById("profileButton").style.display = "block";
+        } catch (e) {
+          localStorage.removeItem("loginAktif");
+          window.location.href = "index.html";
+        }
       }
 
-      slides[slideIndex].style.display = "block";
-      dots[slideIndex].classList.add("active");
-
-      slideIndex = (slideIndex + 1) % slides.length;
-      setTimeout(showSlides, 5000);
-    }
-
-    function setSlide(n) {
-      slideIndex = n;
-      showSlides();
-    }
-
-    createDots();
-    showSlides();
+      initializeSlideshow();
+    };
   </script>
 </body>
 </html>
