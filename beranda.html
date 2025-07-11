@@ -10,21 +10,14 @@
     * {
       box-sizing: border-box;
       scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom, #fff0f5, #ffe0f0);
-      background-image: url("https://emoji.gg/assets/emoji/2371-pawprints.gif");
-      background-size: 50px;
-      background-repeat: repeat;
-      animation: bgScroll 60s linear infinite;
-    }
-
-    @keyframes bgScroll {
-      from { background-position: 0 0; }
-      to { background-position: 1000px 1000px; }
+      background-color: #fff;
+      color: #333;
     }
 
     header {
@@ -32,279 +25,128 @@
       padding: 2rem;
       text-align: center;
       color: white;
-      border-bottom: 5px solid #ff64a5;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
     }
 
     header h1 {
       font-family: 'Fredoka One', cursive;
-      margin: 0;
       font-size: 2.5rem;
     }
 
-    #profileButton {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      display: none;
+    .section-title {
+      font-size: 1.5rem;
+      margin: 2rem 1rem 1rem;
     }
 
-    #profileButton button {
-      padding: 0.6rem 1.2rem;
-      background: white;
-      color: #ff64a5;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s ease;
-    }
-
-    #profileButton button:hover {
-      background: #ffe3ec;
-    }
-
-    main {
-      max-width: 960px;
-      margin: auto;
-      padding: 2rem;
-      background-color: white;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-      margin-top: 2rem;
-    }
-
-    .slideshow-container {
-      position: relative;
-      width: 100%;
-      max-width: 700px;
-      margin: 0 auto 2rem auto;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    }
-
-    .slide-img {
-      width: 100%;
-      display: none;
-      animation: fadeSlide 1s ease-in-out;
-      border-radius: 20px;
-      transition: transform 0.4s ease;
-    }
-
-    .slide-img:hover {
-      transform: scale(1.02);
-    }
-
-    @keyframes fadeSlide {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .dot-container {
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .dot {
-      height: 12px;
-      width: 12px;
-      margin: 0 4px;
-      background-color: #bbb;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.3s;
-      cursor: pointer;
-    }
-
-    .active {
-      background-color: #ff64a5;
-    }
-
-    .menu {
+    .pet-categories {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
-      margin: 2rem 0;
+      justify-content: space-around;
+      padding: 1rem;
+      gap: 1rem;
     }
 
-    .menu-card {
-      width: 130px;
-      height: 140px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    .pet-box {
+      flex: 1 1 120px;
+      max-width: 140px;
+      background: #f5f5f5;
+      border-radius: 16px;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .pet-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 0.5rem;
+    }
+
+    .offers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .offer-box {
+      flex: 1 1 250px;
+      background: #e6f5e6;
+      padding: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: left;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: 3px solid #ffdce8;
+      justify-content: space-between;
     }
 
-    .menu-card:hover {
-      background: #ffe0f0;
-      transform: translateY(-5px) scale(1.03);
-      border-color: #ff64a5;
+    .offer-box img {
+      max-width: 100%;
+      border-radius: 12px;
     }
 
-    .menu-card img {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 10px;
-    }
-
-    .menu-card p {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #ff64a5;
-      margin: 0;
+    .offer-box strong {
+      font-size: 1.2rem;
+      color: #2d7f2d;
     }
 
     footer {
       text-align: center;
       padding: 2rem;
-      color: #999;
       font-size: 0.9rem;
-    }
-
-    @media (max-width: 480px) {
-      .menu {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-
-      .menu-card {
-        width: 45%;
-      }
+      color: #999;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>🐾 PetShop Ceria</h1>
-    <p style="margin: 0; font-size: 1.1rem;">Hewan Sehat, Hati Senang 💖</p>
-    <div id="profileButton">
-      <button onclick="goToProfile()">👤 Profil</button>
-    </div>
+    <p>Hewan Sehat, Hati Senang 💖</p>
   </header>
 
-  <main>
-    <!-- Slideshow -->
-    <div class="slideshow-container" id="slideshow">
-      <img class="slide-img" src="kucing1.jpg" alt="Slide 1">
-      <img class="slide-img" src="Kucing.jpg" alt="Slide 2">
-      <img class="slide-img" src="kucingvip.gif" alt="Slide 3">
-      <img class="slide-img" src="rawwr.jpg" alt="Slide 4">
-      <img class="slide-img" src="anjing.jpg" alt="Slide 5">
-      <img class="slide-img" src="images.jpg" alt="Slide 6">
+  <h2 class="section-title">Shop for your pet</h2>
+  <div class="pet-categories">
+    <div class="pet-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Cat">
+      <div>Cat</div>
     </div>
-
-    <div class="dot-container" id="dotContainer"></div>
-
-    <h2 id="greeting">Hai, pengguna!</h2>
-    <p>Kami siap membantu semua kebutuhan hewan peliharaan Anda dengan penuh cinta!</p>
-
-    <!-- Menu Cards -->
-    <div class="menu">
-      <div class="menu-card" onclick="menuClick('produk.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/3523/3523063.png" alt="Produk" />
-        <p>🛍️ Produk</p>
-      </div>
-      <div class="menu-card" onclick="menuClick('layanann.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/2965/2965567.png" alt="Layanan" />
-        <p>💼 Layanan</p>
-      </div>
-      <div class="menu-card" onclick="menuClick('riwayat.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" alt="Riwayat" />
-        <p>📝 Riwayat</p>
-      </div>
-      <div class="menu-card" onclick="menuClick('informasi.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png" alt="Informasi" />
-        <p>📢 Informasi</p>
-      </div>
-      <div class="menu-card" onclick="menuClick('cabang.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/1308/1308743.png" alt="Cabang" />
-        <p>🏪 Cabang</p>
-      </div>
+    <div class="pet-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Dog">
+      <div>Dog</div>
     </div>
+    <div class="pet-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Small Pet">
+      <div>Small Pet</div>
+    </div>
+    <div class="pet-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Fish">
+      <div>Fish</div>
+    </div>
+    <div class="pet-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Bird">
+      <div>Bird</div>
+    </div>
+  </div>
 
-  </main>
+  <h2 class="section-title">Special offers</h2>
+  <div class="offers">
+    <div class="offer-box">
+      <strong>Shop premium. AT A BETTER PRICE.</strong>
+      <img src="https://via.placeholder.com/300x150" alt="Offer 1">
+    </div>
+    <div class="offer-box">
+      <strong>Economy packs. BUY MORE, SAVE MORE!</strong>
+      <img src="https://via.placeholder.com/300x150" alt="Offer 2">
+    </div>
+    <div class="offer-box">
+      <strong>Clearance Sale. REDUCED PRICES</strong>
+      <img src="https://via.placeholder.com/300x150" alt="Offer 3">
+    </div>
+  </div>
 
   <footer>
     &copy; 2025 PetShop Ceria.
   </footer>
-
-  <audio id="meowSound" src="https://www.fesliyanstudios.com/play-mp3/4383" preload="auto"></audio>
-
-  <script>
-    const loginData = localStorage.getItem("loginAktif");
-    const slides = document.getElementsByClassName("slide-img");
-    const dotContainer = document.getElementById("dotContainer");
-    let dots = [];
-    let slideIndex = 0;
-
-    if (!loginData) {
-      window.location.href = "index.html";
-    } else {
-      try {
-        const user = JSON.parse(loginData);
-        document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
-        document.getElementById("profileButton").style.display = "block";
-      } catch (e) {
-        localStorage.removeItem("loginAktif");
-        window.location.href = "index.html";
-      }
-    }
-
-    function menuClick(page) {
-      document.getElementById("meowSound").play();
-      setTimeout(() => window.location.href = page, 300);
-    }
-
-    function goToProfile() {
-      document.getElementById("meowSound").play();
-      setTimeout(() => window.location.href = "profil.html", 300);
-    }
-
-    function createDots() {
-      for (let i = 0; i < slides.length; i++) {
-        const dot = document.createElement("span");
-        dot.classList.add("dot");
-        dot.onclick = () => setSlide(i);
-        dotContainer.appendChild(dot);
-        dots.push(dot);
-      }
-    }
-
-    function showSlides() {
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-        dots[i].classList.remove("active");
-      }
-
-      slides[slideIndex].style.display = "block";
-      dots[slideIndex].classList.add("active");
-
-      slideIndex = (slideIndex + 1) % slides.length;
-      setTimeout(showSlides, 5000);
-    }
-
-    function setSlide(n) {
-      slideIndex = n;
-      showSlides();
-    }
-
-    createDots();
-    showSlides();
-  </script>
 </body>
 </html>
