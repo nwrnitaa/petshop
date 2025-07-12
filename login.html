@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Akun PetShop Ceria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      background-color: #ffeef2;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      color: #d63384;
+    }
+
+    .form-container, .akun-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      max-width: 400px;
+      margin: 2rem auto;
+    }
+
+    input {
+      padding: 10px;
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #ff80ab;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: #f06292;
+    }
+
+    .logout-btn {
+      background-color: #ff5252;
+    }
+
+    .logout-btn:hover {
+      background-color: #e53935;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>👤 Akun PetShop Ceria</h1>
+
+  <div id="form-login" class="form-container">
+    <h2>Login Akun</h2>
+    <input type="text" id="admin" placeholder="Username" required />
+    <input type="password" id="admin123" placeholder="Kata Sandi" required />
+    <button onclick="login()">Masuk</button>
+    <p id="error-message" class="error"></p>
+  </div>
+
+  <div id="akun-data" class="akun-container" style="display: none;">
+    <h2>Selamat Datang, <span id="akun-nama"></span>!</h2>
+    <p>Email: <span id="akun-email"></span></p>
+    <br><br>
+    <button onclick="masukMenu()">Masuk ke Menu</button>
+  </div>
+
+  <!-- Loading container -->
+  <div id="loading" class="akun-container" style="display: none;">
+    <h2>Memuat...</h2>
+    <p>Silakan tunggu sebentar</p>
+  </div>
+
+  <script>
+    // Simulasi data akun yang disiapkan
+    const akunTersedia = {
+      username: "admin",
+      password: "admin123",
+      nama: "admin",
+      email: "adminpetshop@email.com"
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginData = localStorage.getItem("loginAktif");
+      if (loginData) {
+        const data = JSON.parse(loginData);
+        tampilkanAkun(data.nama, data.email);
+      }
+    });
+
+    function login() {
+      const inputUser = document.getElementById("admin").value;
+      const inputPass = document.getElementById("admin123").value;
+      const errorMsg = document.getElementById("error-message");
+
+      if (inputUser === akunTersedia.username && inputPass === akunTersedia.password) {
+        localStorage.setItem("loginAktif", JSON.stringify({
+          nama: akunTersedia.nama,
+          email: akunTersedia.email
+        }));
+
+      // Tampilkan loading dan alihkan setelah 2 detik
+        document.getElementById("form-login").style.display = "none";
+        errorMsg.innerText = "";
+        document.getElementById("loading").style.display = "block";
+      // Redirect setelah 1.5 detik
+        setTimeout(() => {
+        window.location.href = "beranda.html";
+        }, 1500); // 1500 milidetik = 1.5 detik
+        } else {
+        errorMsg.innerText = "Username atau kata sandi salah!";
+      }
+    }
+
+    function tampilkanAkun(nama, email) {
+      document.getElementById("form-login").style.display = "none";
+      document.getElementById("akun-data").style.display = "block";
+      document.getElementById("akun-nama").innerText = nama;
+      document.getElementById("akun-email").innerText = email;
+    }
+
+    function masukMenu() {
+      window.location.href = "beranda.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("loginAktif");
+      location.reload();
+    }
+  </script>
+</body>
+</html>
