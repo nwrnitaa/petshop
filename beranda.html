@@ -292,8 +292,8 @@
     </div>
   </main>
 
-  <img src="KUCING.png" alt="Anjing" class="dog-animation" />
-  <img src="ANJING.png" alt="Kucing" class="cat-animation" />
+  <img src="KUCING.png" alt="Kucing" class="dog-animation" />
+  <img src="ANJING.png" alt="Anjing" class="cat-animation" />
 
   <footer>
     &copy; 2025 PetShop Ceria.
@@ -345,11 +345,6 @@
       setTimeout(() => window.location.href = page, 300);
     }
 
-    function goToProfile() {
-      document.getElementById("meowSound").play();
-      setTimeout(() => window.location.href = "profil.html", 300);
-    }
-
     function toggleDropdown() {
       const menu = document.getElementById("profileDropdown");
       menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -370,17 +365,17 @@
     });
 
     window.onload = function () {
-      if (!loginData) {
-        window.location.href = "index.html";
-      } else {
-        try {
+      try {
+        if (loginData) {
           const user = JSON.parse(loginData);
           document.getElementById("greeting").innerText = `Hai, ${user.nama}!`;
           document.getElementById("profileButton").style.display = "block";
-        } catch (e) {
-          localStorage.removeItem("loginAktif");
-          window.location.href = "index.html";
+        } else {
+          document.getElementById("greeting").innerText = `Hai, Pengunjung!`;
         }
+      } catch (e) {
+        localStorage.removeItem("loginAktif");
+        document.getElementById("greeting").innerText = `Hai, Pengunjung!`;
       }
 
       initializeSlideshow();
