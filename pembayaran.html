@@ -1,122 +1,186 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Riwayat Pesanan - PetShop Ceria</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pembayaran - PetShop Ceria</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
-      background-color: #fff0f5;
-      margin: 0;
+      background-color: #fff8fb;
       padding: 2rem;
-      color: #333;
+      text-align: center;
     }
 
     h1 {
-      text-align: center;
       color: #d63384;
-      margin-bottom: 1rem;
     }
 
-    .riwayat-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .pesanan-card {
+    .payment-options {
+      max-width: 400px;
+      margin: 2rem auto;
+      text-align: left;
       background-color: #fff;
+      padding: 2rem;
       border-radius: 12px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1rem;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
-    .pesanan-card h3 {
-      margin-top: 0;
-      color: #d63384;
-    }
-
-    ul {
-      margin: 0.5rem 0 1rem;
-      padding-left: 1.2rem;
-    }
-
-    li {
-      margin-bottom: 0.3rem;
-    }
-
-    .back-btn {
+    label {
       display: block;
-      margin: 2rem auto;
+      margin: 1rem 0;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .btn {
+      margin-top: 2rem;
       background-color: #d63384;
       color: white;
       padding: 10px 20px;
       border: none;
       border-radius: 8px;
-      text-align: center;
-      text-decoration: none;
       font-weight: bold;
       cursor: pointer;
-      width: 200px;
+      width: 100%;
     }
 
-    .back-btn:hover {
+    .btn:hover {
       background-color: #c2185b;
     }
 
-    .kosong {
+    #total-harga {
+      font-weight: bold;
+      margin-top: 1rem;
       text-align: center;
-      font-style: italic;
-      color: #777;
-      margin-top: 3rem;
+    }
+
+    #cart-summary {
+      max-width: 400px;
+      margin: 1rem auto;
+      text-align: left;
+      color: #333;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      font-size: 0.9rem;
+    }
+
+    /* Loading overlay */
+    #loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-weight: bold;
+      color: #d63384;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #d63384;
+      border-top: 4px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-top: 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
 
-  <h1>📝 Riwayat Pesanan</h1>
-  <div class="riwayat-container" id="riwayatContainer">
-    <!-- Riwayat pesanan akan dimuat di sini -->
+  <h1>💳 Pilih Metode Pembayaran</h1>
+
+  <div id="cart-summary"><em>Memuat ringkasan pesanan...</em></div>
+
+  <p id="total-harga">Total: Rp0</p>
+
+  <form class="payment-options" onsubmit="submitPayment(event)">
+    <label><input type="radio" name="payment" value="Transfer Bank" required> Transfer Bank</label>
+    <label><input type="radio" name="payment" value="E-Wallet"> E-Wallet (OVO, GoPay, dll)</label>
+    <label><input type="radio" name="payment" value="COD"> Bayar di Tempat (COD)</label>
+    
+    <button type="submit" class="btn">Lanjutkan Pembayaran</button>
+  </form>
+
+  <!-- Loading overlay -->
+  <div id="loading-overlay">
+    ⏳ Memproses pembayaran...
+    <div class="spinner"></div>
   </div>
 
-  <a href="beranda.html" class="back-btn">⬅ Kembali ke Beranda</a>
-
   <script>
-    function tampilkanRiwayat() {
-      const container = document.getElementById("riwayatContainer");
-      const riwayat = JSON.parse(localStorage.getItem("riwayatPesanan") || "[]");
+    function tampilkanTotal() {
+      const cart = JSON.parse(localStorage.getItem("keranjang") || "[]");
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * (item.jumlah || 1);
+      });
+      const totalElem = document.getElementById("total-harga");
+      totalElem.innerText = `Total: Rp${total.toLocaleString("id-ID")}`;
+    }
 
-      if (riwayat.length === 0) {
-        container.innerHTML = `<p class="kosong">Belum ada riwayat pesanan.</p>`;
+    function tampilkanRingkasan() {
+      const cart = JSON.parse(localStorage.getItem("keranjang") || "[]");
+      const summaryElem = document.getElementById("cart-summary");
+      if (cart.length === 0) {
+        summaryElem.innerHTML = "<i>Keranjang kosong</i>";
+        return;
+      }
+      let html = "<strong>Ringkasan Pesanan:</strong><ul>";
+      cart.forEach(item => {
+        const qty = item.jumlah || 1;
+        const subtotal = item.price * qty;
+        html += `<li>${item.name} x ${qty} - Rp${subtotal.toLocaleString("id-ID")}</li>`;
+      });
+      html += "</ul>";
+      summaryElem.innerHTML = html;
+    }
+
+    function submitPayment(event) {
+      event.preventDefault();
+      const metode = document.querySelector('input[name="payment"]:checked')?.value;
+
+      if (!metode) {
+        alert("Silakan pilih metode pembayaran terlebih dahulu.");
         return;
       }
 
-      riwayat.reverse().forEach((item, index) => {
-        const card = document.createElement("div");
-        card.classList.add("pesanan-card");
+      const cart = JSON.parse(localStorage.getItem("keranjang") || "[]");
+      if (cart.length === 0) {
+        alert("Keranjang kosong. Silakan pilih produk terlebih dahulu.");
+        window.location.href = "produk.html";
+        return;
+      }
 
-        let daftar = '';
-        item.pesanan.forEach(p => {
-          const qty = p.jumlah || 1;
-          const subtotal = p.price * qty;
-          daftar += `<li>${p.name} x ${qty} - Rp${subtotal.toLocaleString("id-ID")}</li>`;
-        });
+      localStorage.setItem("metodePembayaran", metode);
 
-        card.innerHTML = `
-          <h3>Pesanan ${riwayat.length - index}</h3>
-          <p><strong>Waktu:</strong> ${item.waktu}</p>
-          <p><strong>Metode Pembayaran:</strong> ${item.metode}</p>
-          <p><strong>Detail:</strong></p>
-          <ul>${daftar}</ul>
-        `;
+      const loading = document.getElementById("loading-overlay");
+      loading.style.display = "flex";
 
-        container.appendChild(card);
-      });
+      setTimeout(() => {
+        alert(`Anda memilih metode pembayaran: ${metode}.\nTerima kasih telah berbelanja di PetShop Ceria!`);
+        localStorage.removeItem("keranjang");
+        window.location.href = "riwayat.html";
+      }, 2000);
     }
 
-    document.addEventListener("DOMContentLoaded", tampilkanRiwayat);
+    document.addEventListener("DOMContentLoaded", () => {
+      tampilkanRingkasan();
+      tampilkanTotal();
+    });
   </script>
 </body>
 </html>
