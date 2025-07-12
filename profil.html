@@ -48,6 +48,17 @@
     .btn:hover {
       background-color: #c2185b;
     }
+
+    .info {
+      text-align: left;
+      margin-top: 1.5rem;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .info strong {
+      color: #d63384;
+    }
   </style>
 </head>
 <body>
@@ -55,30 +66,33 @@
   <div class="card" id="profileCard">
     <h2>Profil Pengguna</h2>
     <p id="status">Memuat...</p>
+    <div id="userInfo" class="info" style="display: none;"></div>
     <button class="btn" id="loginBtn" style="display: none;" onclick="window.location.href='login.html'">Login Sekarang</button>
   </div>
 
   <script>
-    const loginData = localStorage.getItem("loginAktif");
-
     window.onload = function () {
+      const loginData = localStorage.getItem("loginAktif");
       const statusElem = document.getElementById("status");
+      const userInfoElem = document.getElementById("userInfo");
       const loginBtn = document.getElementById("loginBtn");
 
       if (!loginData) {
-        statusElem.innerText = "Kamu belum login. Silakan login untuk mengakses informasi profil.";
+        statusElem.innerText = "Akun tidak ditemukan. Silakan login terlebih dahulu.";
         loginBtn.style.display = "inline-block";
       } else {
         try {
           const user = JSON.parse(loginData);
-          statusElem.innerHTML = `
+          statusElem.innerText = "Selamat datang kembali!";
+          userInfoElem.style.display = "block";
+          userInfoElem.innerHTML = `
             <strong>Nama:</strong> ${user.nama}<br>
             <strong>Email:</strong> ${user.email}<br>
             <strong>Username:</strong> ${user.username || '(tidak tersedia)'}
           `;
         } catch (e) {
           localStorage.removeItem("loginAktif");
-          statusElem.innerText = "Terjadi kesalahan. Silakan login kembali.";
+          statusElem.innerText = "Data pengguna rusak. Silakan login ulang.";
           loginBtn.style.display = "inline-block";
         }
       }
