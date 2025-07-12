@@ -60,11 +60,31 @@
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s ease;
     }
 
-    #profileButton button:hover {
-      background: #ffe3ec;
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 45px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      z-index: 1001;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #ff64a5;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background: #ffe6f0;
     }
 
     main {
@@ -218,8 +238,14 @@
   <header>
     <h1>🐾 PetShop Ceria</h1>
     <p style="margin: 0; font-size: 1.1rem;">Hewan Sehat, Hati Senang 💖</p>
+
     <div id="profileButton">
-      <button onclick="goToProfile()">👤 Profil</button>
+      <button onclick="toggleDropdown()">👤 Profil</button>
+      <div id="profileDropdown" class="dropdown-menu">
+        <a href="profil.html">Lihat Profil</a>
+        <a href="ubah-password.html">Ubah Password</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
     </div>
   </header>
 
@@ -237,7 +263,6 @@
     <h2 id="greeting">Hai, pengguna!</h2>
     <p>Kami siap membantu semua kebutuhan hewan peliharaan Anda dengan penuh cinta!</p>
 
-    <!-- Menu dalam bentuk card -->
     <div class="menu">
       <div class="card" onclick="menuClick('produk.html')">
         <div class="emoji">🛍️</div>
@@ -324,6 +349,25 @@
       document.getElementById("meowSound").play();
       setTimeout(() => window.location.href = "profil.html", 300);
     }
+
+    function toggleDropdown() {
+      const menu = document.getElementById("profileDropdown");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    function logout() {
+      localStorage.removeItem("loginAktif");
+      alert("Berhasil logout!");
+      window.location.href = "index.html";
+    }
+
+    // Tutup dropdown jika klik di luar
+    document.addEventListener("click", function (e) {
+      const btn = document.getElementById("profileButton");
+      if (!btn.contains(e.target)) {
+        document.getElementById("profileDropdown").style.display = "none";
+      }
+    });
 
     window.onload = function () {
       if (!loginData) {
