@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #fff5fb;
+      background-color: #fff0f5;
       margin: 0;
       padding: 2rem;
       text-align: center;
@@ -25,12 +25,20 @@
 
     h2 {
       color: #d63384;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     p {
       color: #555;
       font-size: 1rem;
+    }
+
+    #userInfo {
+      margin-top: 1.5rem;
+      display: none;
+      color: #333;
+      line-height: 1.6;
+      font-weight: 500;
     }
 
     .btn {
@@ -43,20 +51,14 @@
       font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
 
     .btn:hover {
       background-color: #c2185b;
     }
 
-    .info {
-      text-align: left;
-      margin-top: 1.5rem;
-      line-height: 1.8;
-      color: #333;
-    }
-
-    .info strong {
+    strong {
       color: #d63384;
     }
   </style>
@@ -66,8 +68,12 @@
   <div class="card" id="profileCard">
     <h2>Profil Pengguna</h2>
     <p id="status">Memuat...</p>
-    <div id="userInfo" class="info" style="display: none;"></div>
-    <button class="btn" id="loginBtn" style="display: none;" onclick="window.location.href='login.html'">Login Sekarang</button>
+
+    <div id="userInfo"></div>
+
+    <button class="btn" id="loginBtn" style="display: none;" onclick="window.location.href='login.html'">
+      🔐 Login Sekarang
+    </button>
   </div>
 
   <script>
@@ -92,7 +98,7 @@
           `;
         } catch (e) {
           localStorage.removeItem("loginAktif");
-          statusElem.innerText = "Data pengguna rusak. Silakan login ulang.";
+          statusElem.innerText = "Terjadi kesalahan. Silakan login ulang.";
           loginBtn.style.display = "inline-block";
         }
       }
